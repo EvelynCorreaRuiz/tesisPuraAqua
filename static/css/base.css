@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+:root{
+  --Color1: #202840;
+  --Color2: #8095BF;
+  --Color3: #A3B5D9;
+  --Color4: #CEDEF2;
+  --Color5: #F2F2F2;
+  --Color6: #159A9C;
+}
+
+body {
+    background-color: #fff;
+  }
+
+.mi-carrusel {
+  width: 100%;
+  height: 100%;
+  height: 750px; /* Ajusta la altura según tus necesidades */
+}
+
+
+
+  
+
+
+
