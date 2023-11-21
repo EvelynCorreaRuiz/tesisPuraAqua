@@ -1,0 +1,187 @@
+{% extends 'aquaPura/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
+   
+    <title>REGISTRO USUARIO</title>
+  </head>
+
+  <body>
+    {% block content %}
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <form class="row g-3" method="post">
+            {% csrf_token %}
+            <div class="col-md-12">
+              <label for="id_username" class="form-label">Nombre de Usuario</label>
+              <input type="text" class="form-control" name="username" required/>
+              {% if form.username.errors %}
+              <div class="alert alert-danger">
+                  {{ form.username.errors|first }}
+              </div>
+          {% endif %}
+            </div>
+
+
+
+            <div class="col-8">
+              <label for="id_first_name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" placeholder="Nombres" name="first_name" required/>
+              {% if form.first_name.errors %}
+              <div class="alert alert-danger">
+                  {{ form.first_name.errors|first }}
+              </div>
+          {% endif %}
+            </div>
+
+
+
+            <div class="col-4">
+              <label for="id_rut" class="form-label">Rut</label>
+              <input type="text" class="form-control" placeholder="11.222.333-4" name="rut" required/>
+              {% if form.rut.errors %}
+              <div class="alert alert-danger">
+                  {{ form.rut.errors|first }}
+              </div>
+          {% endif %}
+            </div>
+
+
+
+            <div class="col-6">
+                <label for="id_last_name" class="form-label">Apellido Paterno</label>
+                <input type="text" class="form-control" placeholder="Apellido Paterno" name="last_name" required/>
+                {% if form.last_name.errors %}
+                <div class="alert alert-danger">
+                    {{ form.last_name.errors|first }}
+                </div>
+            {% endif %}
+              </div>
+
+              <div class="col-4">
+                <label for="id_last_name2" class="form-label">Apellido Materno</label>
+                <input type="text" class="form-control" name="last_name2" required/>
+                {% if form.last_name2.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.last_name2.errors|first }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+
+            <div class="col-12">
+              <label for="id_email" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" placeholder="ejemplo@ejemplo.com" name="email" required/>
+              {% if form.email.errors %}
+              <div class="alert alert-danger">
+                  {{ form.email.errors|first }}
+              </div>
+              {% endif %}                  
+            </div>
+          
+
+
+            <div class="col-6">
+              <label for="id_birthday" class="form-label">Fecha de Nacimiento</label>
+              <input type="date" class="form-control" placeholder="dd/mm/yyyy" name="birthdate" required/>
+              {% if form.birthdate.errors %}
+              <div class="alert alert-danger">
+                  {{ form.birthdate.errors|first }}
+              </div>            
+              {% endif %}
+            </div>
+
+
+            <div class="col-6">
+              <label for="id_phone_number" class="form-label">Celular</label>
+              <input type="text" class="form-control" placeholder="+56 " name="phone" required/>
+              {% if form.phone.errors %}
+              <div class="alert alert-danger">
+                  {{ form.phone.errors|first }}
+              </div>
+              {% endif %}
+            </div>
+
+
+            <div class="col-12">
+              <label for="inputCity" class="form-label">Ciudad</label>
+              <input type="text" class="form-control" name="city" required/>
+              {% if form.phone.errors %}
+              <div class="alert alert-danger">
+                  {{ form.phone.errors|first }}
+              </div>
+              {% endif %}                  
+            </div>  
+
+
+            <div class="col-8">
+              <label for="id_direccion" class="form-label">Dirección</label>
+              <input type="text" class="form-control" placeholder="Calle Falsa" name="address" required/>
+              {% if form.direccion.errors %}
+              <div class="alert alert-danger">
+                  {{ form.direccion.errors|first }}
+              </div>
+              {% endif %}
+            </div>
+
+
+            <div class="col-4">
+              <label for="id_numeracion" class="form-label">Numero Casa/Dpto</label>
+              <input type="number" class="form-control" placeholder="123" name="numberAddress" required/>
+              {% if form.numberAddress.errors %}
+              <div class="alert alert-danger">
+                  {{ form.numberAddress.errors|first }}
+              </div>
+              {% endif %}
+            </div>
+
+
+         <div class="col-md-6">
+                <label for="id_password1" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="password1" required />
+                {% if form.password1.errors %}
+                <div class="alert alert-danger">
+                    {{ form.password1.errors|first }}
+                </div>
+                {% endif %}
+              </div>
+
+
+             
+
+              <div class="col-md-6">
+                <label for="id_password2" class="form-label">Confirmar Contraseña</label>
+                <input type="password" class="form-control" name="password2" required />
+                {% if form.password2.errors %}
+                <div class="alert alert-danger">
+                    {{ form.password2.errors|first }}
+                </div>
+                  {% endif %}
+              </div>
+
+
+
+            <div class="col-12">
+              <button type="submit" class="btn btn-dark ">Registrarme</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    
+      {% endblock %}
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+  </body>
+</html>

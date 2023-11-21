@@ -128,5 +128,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # VARIABALES DE REDIRECCION DE LOGIN Y LOGOUT
-LOGIN_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'products'
+LOGOUT_REDIRECT_URL = 'home'
+
+AUTH_USER_MODEL = 'appPuraAqua.User'
