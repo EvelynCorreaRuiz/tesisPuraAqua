@@ -4,299 +4,318 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Aqua Pura App</title> 
-    <link rel="stylesheet" href="/static/css/styleIndex.css"/>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <title>Aqua Pura App</title>
+    <link rel="stylesheet" href="/static/css/styleIndex.css" />
   </head>
   <body>
-
-<!-- Inicio Menú header -->
+    <!-- Inicio Menú header -->
     <header class="header">
       <div class="menu container">
         <a href="#" class="logo"> Aqua Pura </a>
-        <input type="checkbox" id="menu"/>
+        <input type="checkbox" id="menu" />
         <label for="menu">
-            <div class="img-container">
-                <img src="/static/img/menu.png" class="menu-icono" alt="menu">
-            </div>
+          <div class="img-container">
+            <img src="/static/img/menu.png" class="menu-icono" alt="menu" />
+          </div>
         </label>
         <nav class="navbar">
-            <ul>
-                <li><a href="login">Iniciar Sesión</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'exit' %}">Salir</a></li>
-                <li><a href="#">Catálogo</a></li>
-                <li><a href="#">Mis Compras</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
+          {% if request.user.is_authenticated %}
+
+          <hr />
+          <h4>{{ user.username | upper }}, Bienvenido :) </h4>
+          {% endif %}
+          <ul>
+            <li><a href="#">Perfil de Usuario</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'exit' %}">Salir</a>
+            </li>
+          </ul>
         </nav>
         <div>
-            <ul>
-                <li class="submenu">
-                    <svg id="img-carrito" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                        <path d="M17 17h-11v-14h-2" />
-                        <path d="M6 5l14 1l-1 7h-13" />
-                      </svg>
-                      <div id="carrito">
-                        <table id="lista-carrito">
-                            <thead>
-                                <tr>
-                                    <th>Imagen</th>
-                                    <th>Nombre</th>
-                                    <th>Precio</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                        <a href="#" id="vaciar-carrito" class="btn-2">Vaciar Carrito</a>
-                      </div>
-                </li>
-            </ul>
+          <ul>
+            <li class="submenu">
+               <a href="{% url 'carrito' %}"> <!--AQUI DEBERÍA HACER EL ENLACE DEL CARRITO PARA LA PAG "CARRITO.HTML" -->
+                <svg id="img-carrito"xmlns="http://www.w3.org/2000/svg"class="icon icon-tabler icon-tabler-shopping-cart"width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C"fill="none"stroke-linecap="round"stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                    <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                    <path d="M17 17h-11v-14h-2" />
+                    <path d="M6 5l14 1l-1 7h-13" />
+                  </svg>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="header-content container">
         <div class="header-txt">
-            <span>Ofertas</span>
-            <h1>Aguas</h1>
-            <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Laborum dicta inventore incidunt ea, repellendus repellat quam
-                iusto atque, aspernatur dolor veritatis rem magnam nostrum sunt 
-                voluptatum cupiditate enim nulla vel?
-            </p>
-            <a href="#" class="btn-1">Información</a>
+          <span>Ofertas</span>
+          <h1>Aguas</h1>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum
+            dicta inventore incidunt ea, repellendus repellat quam iusto atque,
+            aspernatur dolor veritatis rem magnam nostrum sunt voluptatum
+            cupiditate enim nulla vel?
+          </p>
+          <a href="#" class="btn-1">Información</a>
         </div>
         <div class="header-img">
-            <img src="/static/img/agua1.jpg" alt="">
+          <img src="/static/img/agua1.jpg" alt="" />
         </div>
       </div>
     </header>
     <!-- Fin Menú header -->
 
     <section class="information container">
-        <div class="information-content">
-            <div class="information-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-store" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M3 21l18 0" />
-                    <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />
-                    <path d="M5 21l0 -10.15" />
-                    <path d="M19 21l0 -10.15" />
-                    <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
-                  </svg>
-                  <h3>Lorem ipsum</h3>
-                  <p>
-                    voluptatum cupiditate enim nulla vel
-                  </p>
-            </div>
-
-            <div class="information-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-credit-card" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
-                    <path d="M3 10l18 0" />
-                    <path d="M7 15l.01 0" />
-                    <path d="M11 15l2 0" />
-                  </svg>
-                  <h3>Lorem ipsum</h3>
-                  <p>
-                    voluptatum cupiditate enim nulla vel
-                  </p>
-            </div>
-
-            <div class="information-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-truck-delivery" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                    <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                    <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
-                    <path d="M3 9l4 0" />
-                  </svg>
-                  <h3>Lorem ipsum</h3>
-                  <p>
-                    voluptatum cupiditate enim nulla vel
-                  </p>
-            </div>
-
+      <div class="information-content">
+        <div class="information-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-building-store"
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#159A9C"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 21l18 0" />
+            <path
+              d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"
+            />
+            <path d="M5 21l0 -10.15" />
+            <path d="M19 21l0 -10.15" />
+            <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+          </svg>
+          <h3>Lorem ipsum</h3>
+          <p>voluptatum cupiditate enim nulla vel</p>
         </div>
 
+        <div class="information-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-credit-card"
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#159A9C"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z"
+            />
+            <path d="M3 10l18 0" />
+            <path d="M7 15l.01 0" />
+            <path d="M11 15l2 0" />
+          </svg>
+          <h3>Lorem ipsum</h3>
+          <p>voluptatum cupiditate enim nulla vel</p>
+        </div>
+
+        <div class="information-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-truck-delivery"
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#159A9C"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+            <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+            <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+            <path d="M3 9l4 0" />
+          </svg>
+          <h3>Lorem ipsum</h3>
+          <p>voluptatum cupiditate enim nulla vel</p>
+        </div>
+      </div>
     </section>
 
-<!-- Sección Ofertas -->
+    <!-- Sección Ofertas -->
     <section class="oferts container">
-        <div class="ofert-1">
-            <img src="" alt="oferta1">
-            <h3>Oferta</h3>
-            <p>Premium</p>
-        </div>
+      <div class="ofert-1">
+        <img src="" alt="oferta1" />
+        <h3>Oferta</h3>
+        <p>Premium</p>
+      </div>
 
-        <div class="ofert-1">
-            <img src="" alt="oferta2">
-            <h3>Oferta</h3>
-            <p>Premium</p>
-        </div>
+      <div class="ofert-1">
+        <img src="" alt="oferta2" />
+        <h3>Oferta</h3>
+        <p>Premium</p>
+      </div>
 
-        <div class="ofert-1">
-            <img src="" alt="oferta3">
-            <h3>Oferta</h3>
-            <p>Premium</p>
-        </div>
+      <div class="ofert-1">
+        <img src="" alt="oferta3" />
+        <h3>Oferta</h3>
+        <p>Premium</p>
+      </div>
 
-        <div class="ofert-1">
-            <img src="" alt="oferta4">
-            <h3>Oferta</h3>
-            <p>Premium</p>
-        </div>
+      <div class="ofert-1">
+        <img src="" alt="oferta4" />
+        <h3>Oferta</h3>
+        <p>Premium</p>
+      </div>
 
-        <div class="ofert-1">
-            <img src="" alt="oferta5">
-            <h3>Oferta</h3>
-            <p>Premium</p>
-        </div>
+      <div class="ofert-1">
+        <img src="" alt="oferta5" />
+        <h3>Oferta</h3>
+        <p>Premium</p>
+      </div>
     </section>
 
     <!-- Inicio Contenido Principal -->
 
     <main class="products container" id="lista-1">
-        <h2>Productos Destacados</h2>
+      <h2>Productos Destacados</h2>
 
-<!-- lista de productos -->
-        <div class="product-content">
-
-            <div class="product">
-                <img src="/static/img/agua2.jpg" alt="Producto 1">
-                <div class="product-txt">
-                    <h3>Producto</h3>
-                    <p class="precio">$15.000</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="1">Agregar</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="" alt="Producto 2">
-                <div class="product-txt">
-                    <h3>Producto</h3>
-                    <p class="precio">$15.000</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="2">Agregar</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="" alt="Producto 3">
-                <div class="product-txt">
-                    <h3>Producto</h3>
-                    <p class="precio">$15.000</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="3">Agregar</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="" alt="Producto 4">
-                <div class="product-txt">
-                    <h3>Producto</h3>
-                    <p class="precio">$15.000</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="4">Agregar</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="" alt="Producto 5">
-                <div class="product-txt">
-                    <h3>Producto</h3>
-                    <p class="precio">$15.000</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="5">Agregar</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="" alt="Producto 6">
-                <div class="product-txt">
-                    <h3>Producto</h3>
-                    <p class="precio">$15.000</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="6">Agregar</a>
-                </div>
-            </div>
-
+      <!-- lista de productos -->
+      <div class="product-content">
+        <div class="product">
+          <img src="/static/img/agua2.jpg" alt="Producto 1" />
+          <div class="product-txt">
+            <h3>Producto</h3>
+            <p class="precio">$15.000</p>
+            <a href="#" class="agregar-carrito btn-2" data-id="1">Agregar</a>
+          </div>
         </div>
 
+        <div class="product">
+          <img src="" alt="Producto 2" />
+          <div class="product-txt">
+            <h3>Producto</h3>
+            <p class="precio">$15.000</p>
+            <a href="#" class="agregar-carrito btn-2" data-id="2">Agregar</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <img src="" alt="Producto 3" />
+          <div class="product-txt">
+            <h3>Producto</h3>
+            <p class="precio">$15.000</p>
+            <a href="#" class="agregar-carrito btn-2" data-id="3">Agregar</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <img src="" alt="Producto 4" />
+          <div class="product-txt">
+            <h3>Producto</h3>
+            <p class="precio">$15.000</p>
+            <a href="#" class="agregar-carrito btn-2" data-id="4">Agregar</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <img src="" alt="Producto 5" />
+          <div class="product-txt">
+            <h3>Producto</h3>
+            <p class="precio">$15.000</p>
+            <a href="#" class="agregar-carrito btn-2" data-id="5">Agregar</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <img src="" alt="Producto 6" />
+          <div class="product-txt">
+            <h3>Producto</h3>
+            <p class="precio">$15.000</p>
+            <a href="#" class="agregar-carrito btn-2" data-id="6">Agregar</a>
+          </div>
+        </div>
+      </div>
     </main>
     <!-- Fin Contenido Principal -->
 
     <section class="service">
-
-        <div class="service-1">
-            <img  class="store"  src="" alt="servicio1">
-        </div>
-        <div class="service-2">
-            <img  class="store"  src="" alt="servicio2">
-        </div>
-        <div class="service-3">
-            <img  class="store"  src="" alt="servicio3">
-        </div>
-
+      <div class="service-1">
+        <img class="store" src="" alt="servicio1" />
+      </div>
+      <div class="service-2">
+        <img class="store" src="" alt="servicio2" />
+      </div>
+      <div class="service-3">
+        <img class="store" src="" alt="servicio3" />
+      </div>
     </section>
 
     <section>
-        <form>
-            <input type="email" placeholder="Correo Electrónico">
-            <input type="submit" class="btn-3">
-        </form>
-    
+      <form>
+        <input type="email" placeholder="Correo Electrónico" />
+        <input type="submit" class="btn-3" />
+      </form>
     </section>
 
     <footer class="footer">
-
-        <div class="footer-content container">
-            <div class="link">
-                <h3>lorem</h3>
-                <ul>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                </ul>
-            </div>
-
-            <div class="link">
-                <h3>lorem</h3>
-                <ul>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                </ul>
-            </div>
-
-            <div class="link">
-                <h3>lorem</h3>
-                <ul>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                </ul>
-            </div>
-
-            <div class="link">
-                <h3>lorem</h3>
-                <ul>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                </ul>
-            </div>
-
+      <div class="footer-content container">
+        <div class="link">
+          <h3>lorem</h3>
+          <ul>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+          </ul>
         </div>
 
+        <div class="link">
+          <h3>lorem</h3>
+          <ul>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+          </ul>
+        </div>
+
+        <div class="link">
+          <h3>lorem</h3>
+          <ul>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+          </ul>
+        </div>
+
+        <div class="link">
+          <h3>lorem</h3>
+          <ul>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Lorem</a></li>
+          </ul>
+        </div>
+      </div>
     </footer>
 
     <script src="{% static 'script.js' %}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

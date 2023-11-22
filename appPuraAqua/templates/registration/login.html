@@ -1,11 +1,5 @@
 {% extends 'aquaPura/base.html' %} {% block content %} 
-
-<h3>login</h3>
-
-<br />
-<h2>Iniciar Sesión</h2>
-<form method="post">
-    {% csrf_token %}
+<!-- <form>
     <label for="id_username">Nombre de usuario:</label>
     <input type="text" name="username" required>
     <br>
@@ -13,5 +7,125 @@
     <input type="password" name="password" required>
     <br>
     <button type="submit">Iniciar Sesión</button>
+</form> -->
+
+<!-- Section: Design Block -->
+<section class="background-radial-gradient overflow-hidden">
+    <style>
+      .background-radial-gradient {
+        background-color: hsl(218, 41%, 15%);
+        background-image: radial-gradient(650px circle at 0% 0%,
+            hsl(218, 41%, 35%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%),
+          radial-gradient(1250px circle at 100% 100%,
+            hsl(218, 41%, 45%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%);
+      }
+  
+      #radius-shape-1 {
+        height: 220px;
+        width: 220px;
+        top: -60px;
+        left: -130px;
+        background: radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
+      }
+  
+      #radius-shape-2 {
+        border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+        bottom: -60px;
+        right: -110px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
+      }
+  
+      .bg-glass {
+        background-color: hsla(0, 0%, 100%, 0.9) !important;
+        backdrop-filter: saturate(200%) blur(25px);
+      }
+    </style>
+  <form method="post">
+{% csrf_token %}
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+      <div class="row gx-lg-5 align-items-center mb-5">
+        <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+          <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+            LA MEJOR FORMA <br />
+            <span style="color: hsl(218, 81%, 75%)">de hidratarte</span>
+          </h1>
+          <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%); text-align: justify;">
+            Aqua Pura es una tienda especializada en la venta de aguas purificadas
+            y sus derivados, comprometida con brindar a sus clientes productos de 
+            la más alta calidad para satisfacer sus necesidades de hidratación y 
+            bienestar. Nos destacamos por ofrecer una amplia variedad de opciones, 
+            desde aguas purificadas naturalmente hasta productos innovadores relacionados 
+            con la pureza del agua.
+          </p>
+        </div>
+  
+        <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+          <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+          <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+  
+          <div class="card bg-glass">
+            <div class="card-body px-4 py-5 px-md-5">
+              <form>
+  
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="id_username">Correo Electrónico</label>
+                  <input type="text" class="form-control" name="username" required/>
+                </div>
+  
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="id_password">Contraseña</label>
+                  <input type="password" class="form-control" name="password" required />
+                </div>
+  
+                <!-- Checkbox -->
+                <div class="form-check d-flex justify-content-center mb-4">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                  <label class="form-check-label" for="form2Example33">
+                    Subscribase a nuestro Newsletter
+                  </label>
+                </div>
+  
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-dark btn-block mb-4">
+                  Iniciar Sesión
+                </button>
+  
+                <!-- Register buttons -->
+                <div class="text-center">
+                  <p>O inicie sesión con:</p>
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-facebook-f">Facebook</i>
+                  </button>
+  
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-google">Google</i>
+                  </button>
+  
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-twitter">Twitter</i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </form>
-{% endblock %}
+  <!-- Section: Design Block -->
+  {% endblock %}

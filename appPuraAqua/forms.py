@@ -7,7 +7,7 @@ User = get_user_model()
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ["username", "first_name", "rut", "last_name", "last_name2", "email", "phone", "address", "city", "numberAddress", "birthdate", "password1", "password2", "is_staff"]
+        fields = ["first_name", "rut", "last_name", "last_name2", "email", "phone", "address", "city", "numberAddress", "birthdate", "password1", "password2", "is_staff", "comuna"]
 
     def save(self, commit=True):
         user = super(RegisterForm, self).save(commit=False)
@@ -15,3 +15,4 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    

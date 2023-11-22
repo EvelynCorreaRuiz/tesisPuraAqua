@@ -15,6 +15,9 @@ def products(request):
 def exit(request):
     logout(request)
     return redirect('home')
+    
+def carrito(request):
+    return render(request, 'aquaPura/carrito.html')
 
 def register(request):
     if request.method == "POST":
@@ -25,4 +28,5 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, 'registration/register.html', {'form': form})
+
 
