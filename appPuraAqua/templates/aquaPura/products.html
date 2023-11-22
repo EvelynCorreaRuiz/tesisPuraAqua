@@ -28,7 +28,7 @@
           {% if request.user.is_authenticated %}
 
           <hr />
-          <h4>{{ user.username | upper }}, Bienvenido :) </h4>
+          <h4>{{ user.first_name | upper }}, Bienvenido :)</h4>
           {% endif %}
           <ul>
             <li><a href="#">Perfil de Usuario</a></li>
@@ -40,14 +40,27 @@
         <div>
           <ul>
             <li class="submenu">
-               <a href="{% url 'carrito' %}"> <!--AQUI DEBERÍA HACER EL ENLACE DEL CARRITO PARA LA PAG "CARRITO.HTML" -->
-                <svg id="img-carrito"xmlns="http://www.w3.org/2000/svg"class="icon icon-tabler icon-tabler-shopping-cart"width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C"fill="none"stroke-linecap="round"stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                    <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                    <path d="M17 17h-11v-14h-2" />
-                    <path d="M6 5l14 1l-1 7h-13" />
-                  </svg>
+              <a href="{% url 'carrito' %}">
+                <!--AQUI DEBERÍA HACER EL ENLACE DEL CARRITO PARA LA PAG "CARRITO.HTML" -->
+                <svg
+                  id="img-carrito"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-shopping-cart"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="#159A9C"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M17 17h-11v-14h-2" />
+                  <path d="M6 5l14 1l-1 7h-13" />
+                </svg>
               </a>
             </li>
           </ul>
@@ -186,136 +199,155 @@
     <!-- Inicio Contenido Principal -->
 
     <main class="products container" id="lista-1">
-      <h2>Productos Destacados</h2>
+      <h2>Nuestros Productos</h2>
 
       <!-- lista de productos -->
       <div class="product-content">
+        <!-- Producto 1 -->
         <div class="product">
-          <img src="/static/img/agua2.jpg" alt="Producto 1" />
+          <img src="{{ products.0.image_url }}" alt="{{ products.0.name }}" />
           <div class="product-txt">
-            <h3>Producto</h3>
-            <p class="precio">$15.000</p>
-            <a href="#" class="agregar-carrito btn-2" data-id="1">Agregar</a>
+            <h3>{{ products.0.name }}</h3>
+            <p class="precio">${{ products.0.price }}</p>
+            <form action="{% url 'add_to_cart' products.0.id %}" method="post">
+              {% csrf_token %}
+              <input
+                type="number"
+                name="quantity"
+                min="1"
+                max="{{ products.0.quantity }}"
+                value="1"
+              />
+              <input type="submit" value="Agregar" />
+            </form>
           </div>
         </div>
 
+        <!-- Producto 2 -->
         <div class="product">
-          <img src="" alt="Producto 2" />
+          <img src="{{ products.1.image_url }}" alt="{{ products.1.name }}" />
           <div class="product-txt">
-            <h3>Producto</h3>
-            <p class="precio">$15.000</p>
-            <a href="#" class="agregar-carrito btn-2" data-id="2">Agregar</a>
+            <h3>{{ products.1.name }}</h3>
+            <p class="precio">${{ products.1.price }}</p>
+            <form action="{% url 'add_to_cart' products.1.id %}" method="post">
+              {% csrf_token %}
+              <input
+                type="number"
+                name="quantity"
+                min="1"
+                max="{{ products.1.quantity }}"
+                value="1"
+              />
+              <input type="submit" value="Agregar" />
+            </form>
           </div>
         </div>
 
+        <!-- Producto 3 -->
         <div class="product">
-          <img src="" alt="Producto 3" />
+          <img src="{{ products.2.image_url }}" alt="{{ products.2.name }}" />
           <div class="product-txt">
-            <h3>Producto</h3>
-            <p class="precio">$15.000</p>
-            <a href="#" class="agregar-carrito btn-2" data-id="3">Agregar</a>
-          </div>
-        </div>
-
-        <div class="product">
-          <img src="" alt="Producto 4" />
-          <div class="product-txt">
-            <h3>Producto</h3>
-            <p class="precio">$15.000</p>
-            <a href="#" class="agregar-carrito btn-2" data-id="4">Agregar</a>
-          </div>
-        </div>
-
-        <div class="product">
-          <img src="" alt="Producto 5" />
-          <div class="product-txt">
-            <h3>Producto</h3>
-            <p class="precio">$15.000</p>
-            <a href="#" class="agregar-carrito btn-2" data-id="5">Agregar</a>
-          </div>
-        </div>
-
-        <div class="product">
-          <img src="" alt="Producto 6" />
-          <div class="product-txt">
-            <h3>Producto</h3>
-            <p class="precio">$15.000</p>
-            <a href="#" class="agregar-carrito btn-2" data-id="6">Agregar</a>
+            <h3>{{ products.2.name }}</h3>
+            <p class="precio">${{ products.2.price }}</p>
+            <form action="{% url 'add_to_cart' products.2.id %}" method="post">
+              {% csrf_token %}
+              <input
+                type="number"
+                name="quantity"
+                min="1"
+                max="{{ products.2.quantity }}"
+                value="1"
+              />
+              <input type="submit" value="Agregar" />
+            </form>
           </div>
         </div>
       </div>
     </main>
     <!-- Fin Contenido Principal -->
 
-    <section class="service">
-      <div class="service-1">
-        <img class="store" src="" alt="servicio1" />
+    <!-- Footer -->
+    <footer
+      class="text-center text-lg-start text-white"
+      style="background-color: #43a3a5"
+    >
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Links -->
+        <section class="">
+          <!--Grid row-->
+          <div class="row">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h3 class="text-uppercase mb-4 font-weight-bold">Aqua Pura</h3>
+              <p>
+                Ante cualquier duda o consulta, no dudes en ponerte en contacto
+                con nosotros :)
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">
+                Políticas y Procedimientos
+              </h6>
+              <p>
+                <a style="text-decoration: none" class="text-white"
+                  >Garantía y Satisfacción</a
+                >
+              </p>
+              <p>
+                <a style="text-decoration: none" class="text-white"
+                  >Políticas de devolución o cambio</a
+                >
+              </p>
+            </div>
+
+            <!-- Grid column -->
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">
+                ¡Contáctanos!
+              </h6>
+              <p><i class="fas fa-home mr-3"></i> Calle Falsa #123</p>
+              <p><i class="fas fa-envelope mr-3"></i> ventas@aquapura.cl</p>
+              <p><i class="fas fa-phone mr-3"></i> +569 12345678</p>
+              <p><i class="fas fa-print mr-3"></i> +569 87654321</p>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+
+        <hr class="my-3" />
+
+        <!-- Section: Copyright -->
+        <section class="p-3 pt-0">
+          <div class="row d-flex align-items-center">
+            <!-- Grid column -->
+            <div class="col-md-7 col-lg-8 text-center text-md-start"></div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+              <!-- Facebook -->
+              <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-facebook-f"></i>Facebook</a>
+              <!-- Twitter -->
+              <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-twitter"></i>Twitter</a>
+              <!-- Instagram -->
+              <a class="btn btn-outline-light btn-floating m-1" role="button"><i class="fab fa-instagram"></i>Instagram</a>
+            </div>
+
+            <!-- Grid column -->
+          </div>
+        </section>
+        <!-- Section: Copyright -->
       </div>
-      <div class="service-2">
-        <img class="store" src="" alt="servicio2" />
-      </div>
-      <div class="service-3">
-        <img class="store" src="" alt="servicio3" />
-      </div>
-    </section>
-
-    <section>
-      <form>
-        <input type="email" placeholder="Correo Electrónico" />
-        <input type="submit" class="btn-3" />
-      </form>
-    </section>
-
-    <footer class="footer">
-      <div class="footer-content container">
-        <div class="link">
-          <h3>lorem</h3>
-          <ul>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-          </ul>
-        </div>
-
-        <div class="link">
-          <h3>lorem</h3>
-          <ul>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-          </ul>
-        </div>
-
-        <div class="link">
-          <h3>lorem</h3>
-          <ul>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-          </ul>
-        </div>
-
-        <div class="link">
-          <h3>lorem</h3>
-          <ul>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Lorem</a></li>
-          </ul>
-        </div>
-      </div>
+      <!-- Grid container -->
     </footer>
-
-    <script src="{% static 'script.js' %}"></script>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>

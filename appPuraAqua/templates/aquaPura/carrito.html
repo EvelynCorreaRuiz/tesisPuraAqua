@@ -7,5 +7,46 @@
 </head>
 <body>
     <h1> CARRITO COMPRA</h1>
+
+    <main class="carrito container">
+        <h2>Carrito de Compras</h2>
+
+        <!-- lista de productos en el carrito -->
+        <div class="carrito-content">
+            {% for item in items %}
+            <div class="carrito-item">
+                <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" />
+                <div class="carrito-item-txt">
+                    <h3>{{ item.product.name }}</h3>
+                    <p class="precio">${{ item.price }}</p>
+                    <p class="cantidad">Cantidad: {{ item.quantity }}</p>
+                    <form action="{% url 'increase_quantity' item.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="+">
+                    </form>
+                    <form action="{% url 'decrease_quantity' item.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="-">
+                    </form>
+                    <form action="{% url 'remove_from_cart' item.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Eliminar del carrito">
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="carrito-total">
+            <h3>Total: ${{ cart.total }}</h3>
+            <form action="{% url 'empty_cart' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Vaciar carrito">
+            </form>
+        </div>
+        <div class="carrito-back">
+            <a href="{% url 'products' %}">Volver a productos</a>
+        </div>
+    </main>
 </body>
 </html>

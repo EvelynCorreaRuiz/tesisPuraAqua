@@ -4,6 +4,7 @@ from django.db import models
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
+from django.contrib.auth.models import User
 
 class CustomPasswordValidator:
     def validate(self, password, user=None):
@@ -75,6 +76,23 @@ class User(AbstractUser):
         db_table = 'Usuario'
 
     comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE, null=True)
+
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+    quantity = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return self.name
+    
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
 
 
 
