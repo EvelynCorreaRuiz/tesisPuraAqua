@@ -1,18 +1,56 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/static/css/carrito.css">
     <title>CARRITO COMPRA</title>
 </head>
 <body>
-    <h1> CARRITO COMPRA</h1>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark full-width-navbar">
+        {% if request.user.is_authenticated %}
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}">Aqua Pura</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Perfil de usuario</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'products' %}">Productos</a>
+              </li>
+              
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'sales_overview' %}">Ver resumen de ventas</a>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'exit' %}">Salir</a>
+                </li>
+                {% if request.user.is_superuser %}
+            </ul>
+            {% endif %}
+          </div>
+          <!-- <a style="color: aliceblue; text-align: center; padding-right: 5cqi;">{{ user.first_name | upper }}, éste es el resumen de tu pedido</a>
+          {% endif %} -->
+        </div>
+      </nav>
 
     <main class="carrito container">
-        <h2>Carrito de Compras</h2>
+        <h2><a style="text-align: center; padding-right: 5cqi;">{{ user.first_name | upper }}, éste es el resumen de tu pedido</a>
+            </h2>
 
-        <!-- lista de productos en el carrito -->
-        <div class="carrito-content">
+         <!-- lista de productos en el carrito -->
+         <div class="carrito-content">
             {% for item in items %}
             <div class="carrito-item">
                 <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" />
@@ -22,11 +60,11 @@
                     <p class="cantidad">Cantidad: {{ item.quantity }}</p>
                     <form action="{% url 'increase_quantity' item.id %}" method="post">
                         {% csrf_token %}
-                        <input type="submit" value="+">
+                        <input class="mas"  type="submit" value="+">
                     </form>
                     <form action="{% url 'decrease_quantity' item.id %}" method="post">
                         {% csrf_token %}
-                        <input type="submit" value="-">
+                        <input class="menos" type="submit" value="-">
                     </form>
                     <form action="{% url 'remove_from_cart' item.id %}" method="post">
                         {% csrf_token %}
@@ -41,12 +79,98 @@
             <h3>Total: ${{ cart.total }}</h3>
             <form action="{% url 'empty_cart' %}" method="post">
                 {% csrf_token %}
-                <input type="submit" value="Vaciar carrito">
+                <input class="vacias_carrito" type="submit" value="Vaciar carrito">
+            </form>
+            <form action="{% url 'checkout' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Finalizar compra">
             </form>
         </div>
-        <div class="carrito-back">
+        <!-- <div class="carrito-back">
             <a href="{% url 'products' %}">Volver a productos</a>
-        </div>
+        </div> -->
     </main>
+    <footer class="text-center text-lg-start text-white" style="background-color: #43a3a5">
+<!-- Grid container -->
+<div class="container p-4 pb-0">
+<!-- Section: Links -->
+<section class="">
+  <!--Grid row-->
+  <div class="row">
+    <!-- Grid column -->
+    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+      <h3 class="text-uppercase mb-4 font-weight-bold">
+        Aqua Pura
+      </h3>
+      <p>
+        Ante cualquier duda o consulta, no dudes en ponerte en contacto con nosotros :)
+      </p>
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+      <h6 class="text-uppercase mb-4 font-weight-bold">
+        Políticas y Procedimientos
+      </h6>
+      <p>
+        <a style="text-decoration: none;" class="text-white">Garantía y Satisfacción</a>
+      </p>
+      <p>
+        <a style="text-decoration: none;" class="text-white">Políticas de devolución o cambio</a>
+      </p>
+      <p>
+        <a style="text-decoration: none;" class="text-white">Tienda</a>
+      </p>
+    </div>
+
+    <!-- Grid column -->
+    <hr class="w-100 clearfix d-md-none"/>
+
+    <!-- Grid column -->
+    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+      <h6 class="text-uppercase mb-4 font-weight-bold">¡Contáctanos!</h6>
+      <p><i class="fas fa-home mr-3"></i> Calle Falsa #123</p>
+      <p><i class="fas fa-envelope mr-3"></i> ventas@aquapura.cl </p>
+      <p><i class="fas fa-phone mr-3"></i> +569 12345678</p>
+      <p><i class="fas fa-print mr-3"></i> +569 87654321</p>
+    </div>
+    <!-- Grid column -->
+  </div>
+  <!--Grid row-->
+</section>
+<!-- Section: Links -->
+
+<hr class="my-3">
+
+<!-- Section: Copyright -->
+<section class="p-3 pt-0">
+  <div class="row d-flex align-items-center">
+    <!-- Grid column -->
+    <div class="col-md-7 col-lg-8 text-center text-md-start">
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-md-7 col-lg-8 ml-lg-0 text-center text-md-end">
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-facebook-f"></i>Facebook</a>
+      <!-- Twitter -->
+      <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-twitter"></i>Twitter</a>
+      <!-- Instagram -->
+      <a class="btn btn-outline-light btn-floating m-1" class="text-white"role="button"><i class="fab fa-instagram"></i>Instagram</a>
+    </div>
+
+    <!-- Grid column -->
+  </div>
+</section>
+<!-- Section: Copyright -->
+</div>
+<!-- Grid container -->
+</footer>
+
+
+
+
 </body>
 </html>

@@ -4,42 +4,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
     <title>Aqua Pura App</title>
     <link rel="stylesheet" href="/static/css/styleIndex.css" />
   </head>
-  <body>
-    <!-- Inicio Menú header -->
-    <header class="header">
-      <div class="menu container">
-        <a href="#" class="logo"> Aqua Pura </a>
-        <input type="checkbox" id="menu" />
-        <label for="menu">
-          <div class="img-container">
-            <img src="/static/img/menu.png" class="menu-icono" alt="menu" />
-          </div>
-        </label>
-        <nav class="navbar">
-          {% if request.user.is_authenticated %}
 
-          <hr />
-          <h4>{{ user.first_name | upper }}, Bienvenido :)</h4>
-          {% endif %}
-          <ul>
-            <li><a href="#">Perfil de Usuario</a></li>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark full-width-navbar">
+      {% if request.user.is_authenticated %}
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Aqua Pura</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'exit' %}">Salir</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">Perfil de usuario</a>
+            </li>
+            
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'sales_overview' %}">Ver resumen de ventas</a>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'exit' %}">Salir</a>
+              </li>
+              {% if request.user.is_superuser %}
           </ul>
-        </nav>
-        <div>
-          <ul>
-            <li class="submenu">
+          {% endif %}
+          <!-- <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form> -->
+        </div>
+        <a style="color: aliceblue; text-align: center;">¡Bienvenid@! {{ user.first_name | upper }}</a>
+        {% endif %}
+      </div>
+        <ul>
+            <li class="submenu mt-2" style="padding-right: 5cqi;">
               <a href="{% url 'carrito' %}">
                 <!--AQUI DEBERÍA HACER EL ENLACE DEL CARRITO PARA LA PAG "CARRITO.HTML" -->
                 <svg
@@ -64,141 +71,63 @@
               </a>
             </li>
           </ul>
-        </div>
-      </div>
-      <div class="header-content container">
-        <div class="header-txt">
-          <span>Ofertas</span>
-          <h1>Aguas</h1>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum
-            dicta inventore incidunt ea, repellendus repellat quam iusto atque,
-            aspernatur dolor veritatis rem magnam nostrum sunt voluptatum
-            cupiditate enim nulla vel?
-          </p>
-          <a href="#" class="btn-1">Información</a>
-        </div>
-        <div class="header-img">
-          <img src="/static/img/agua1.jpg" alt="" />
-        </div>
-      </div>
-    </header>
-    <!-- Fin Menú header -->
+    </nav>
+    
+    
+    <!-- fin navbar -->
 
-    <section class="information container">
+    <section class="information container mt-4">
       <div class="information-content">
         <div class="information-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-building-store"
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#159A9C"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 21l18 0" />
-            <path
-              d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"
-            />
-            <path d="M5 21l0 -10.15" />
-            <path d="M19 21l0 -10.15" />
-            <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
-          </svg>
-          <h3>Lorem ipsum</h3>
-          <p>voluptatum cupiditate enim nulla vel</p>
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-store" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round"stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l18 0" /><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"/><path d="M5 21l0 -10.15" /><path d="M19 21l0 -10.15" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /></svg>
+          <h3>Nuestra Tienda</h3>
+          <p>Encuentranos en Calle Falsa #123 </p>
         </div>
 
         <div class="information-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-credit-card"
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#159A9C"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path
-              d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z"
-            />
-            <path d="M3 10l18 0" />
-            <path d="M7 15l.01 0" />
-            <path d="M11 15l2 0" />
-          </svg>
-          <h3>Lorem ipsum</h3>
-          <p>voluptatum cupiditate enim nulla vel</p>
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-credit-card" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z"/><path d="M3 10l18 0" /><path d="M7 15l.01 0" /><path d="M11 15l2 0" /></svg>
+          <h3>Medios de Pago</h3>
+          <p>Débito, Crédito o Efectivo</p>
         </div>
 
-        <div class="information-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-truck-delivery"
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#159A9C"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-            <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-            <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
-            <path d="M3 9l4 0" />
-          </svg>
-          <h3>Lorem ipsum</h3>
-          <p>voluptatum cupiditate enim nulla vel</p>
+        <div class="information-1"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-truck-delivery" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" /><path d="M3 9l4 0" /></svg>
+          <h3>Despacho</h3>
+          <p>Llegamos a donde nos necesites ;)</p>
         </div>
       </div>
     </section>
 
-    <!-- Sección Ofertas -->
-    <section class="oferts container">
+   <!--  Sección Ofertas -->
+    <!-- <section class="oferts container">
       <div class="ofert-1">
         <img src="" alt="oferta1" />
         <h3>Oferta</h3>
-        <p>Premium</p>
       </div>
 
       <div class="ofert-1">
         <img src="" alt="oferta2" />
         <h3>Oferta</h3>
-        <p>Premium</p>
       </div>
 
       <div class="ofert-1">
         <img src="" alt="oferta3" />
         <h3>Oferta</h3>
-        <p>Premium</p>
       </div>
 
       <div class="ofert-1">
         <img src="" alt="oferta4" />
         <h3>Oferta</h3>
-        <p>Premium</p>
       </div>
 
       <div class="ofert-1">
         <img src="" alt="oferta5" />
         <h3>Oferta</h3>
-        <p>Premium</p>
       </div>
-    </section>
+    </section> -->
 
     <!-- Inicio Contenido Principal -->
 
-    <main class="products container" id="lista-1">
+    <main class="products container mt-4" id="lista-1">
       <h2>Nuestros Productos</h2>
 
       <!-- lista de productos -->
@@ -211,13 +140,7 @@
             <p class="precio">${{ products.0.price }}</p>
             <form action="{% url 'add_to_cart' products.0.id %}" method="post">
               {% csrf_token %}
-              <input
-                type="number"
-                name="quantity"
-                min="1"
-                max="{{ products.0.quantity }}"
-                value="1"
-              />
+              <input type="number" name="quantity" min="1" max="{{ products.0.quantity }}" value="1" />
               <input type="submit" value="Agregar" />
             </form>
           </div>
@@ -231,13 +154,7 @@
             <p class="precio">${{ products.1.price }}</p>
             <form action="{% url 'add_to_cart' products.1.id %}" method="post">
               {% csrf_token %}
-              <input
-                type="number"
-                name="quantity"
-                min="1"
-                max="{{ products.1.quantity }}"
-                value="1"
-              />
+              <input type="number" name="quantity" min="1" max="{{ products.1.quantity }}" value="1"/>
               <input type="submit" value="Agregar" />
             </form>
           </div>
@@ -251,14 +168,8 @@
             <p class="precio">${{ products.2.price }}</p>
             <form action="{% url 'add_to_cart' products.2.id %}" method="post">
               {% csrf_token %}
-              <input
-                type="number"
-                name="quantity"
-                min="1"
-                max="{{ products.2.quantity }}"
-                value="1"
-              />
-              <input type="submit" value="Agregar" />
+              <input type="number" name="quantity" min="1" max="{{ products.2.quantity }}" value="1"/>
+              <input type="submit" value="Agregar"/>
             </form>
           </div>
         </div>
@@ -279,7 +190,7 @@
           <div class="row">
             <!-- Grid column -->
             <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h3 class="text-uppercase mb-4 font-weight-bold">Aqua Pura</h3>
+              <h2 class="text-uppercase mb-4 font-weight-bold">Aqua Pura</h2>
               <p>
                 Ante cualquier duda o consulta, no dudes en ponerte en contacto
                 con nosotros :)
@@ -301,6 +212,9 @@
                 <a style="text-decoration: none" class="text-white"
                   >Políticas de devolución o cambio</a
                 >
+              </p>
+              <p>
+                <a style="text-decoration: none" class="text-white">Tienda</a>
               </p>
             </div>
 
@@ -333,21 +247,23 @@
             <!-- Grid column -->
 
             <!-- Grid column -->
-            <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+            <div class="col-md-7 col-lg-8 ml-lg-0 text-center text-md-end">
               <!-- Facebook -->
               <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-facebook-f"></i>Facebook</a>
               <!-- Twitter -->
               <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-twitter"></i>Twitter</a>
               <!-- Instagram -->
-              <a class="btn btn-outline-light btn-floating m-1" role="button"><i class="fab fa-instagram"></i>Instagram</a>
-            </div>
+              <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-instagram"></i>Instagram</a></div>
 
             <!-- Grid column -->
           </div>
-        </section>
+         </section>
         <!-- Section: Copyright -->
-      </div>
+        </div>
       <!-- Grid container -->
-    </footer>
-  </body>
-</html>
+      </footer>
+    
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+ 
+    </body>
+  </html>

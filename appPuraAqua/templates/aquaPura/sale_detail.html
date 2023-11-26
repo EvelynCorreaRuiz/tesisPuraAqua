@@ -1,0 +1,99 @@
+{% extends 'aquaPura/base.html' %}{% block content %}
+
+<main>
+  <h2>
+    <a style="text-align: center; padding-right: 5cqi">{{ user.first_name | upper }}, gracias por comprar con nosotros!</a>
+  </h2>
+  <div class="container">
+    <div class="row justify">
+        <div class="col-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th style="color: #43a3a5; font-size: 30px;">Modo de Entrega</th>
+              </tr>
+            </thead>
+            <table class="table table-borderless">
+              <thead>
+                  <thead>
+                    <th>Despacho</th>
+                    <th>Fecha de Entrega</th>
+                    <th>Horario</th>
+                    <th>Dirección</th>  
+                  </thead>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Despacho a Domicilio</td>
+                  <td>{{ sale.date }}</td>
+                  <td>{{ sale.date }} rescatar solo hora</td>
+                  <td> Poner Dirección cliente</td>
+                </tr>
+              </tbody>
+
+            </table>
+            
+          </table>
+
+        </div>
+        <div class="col-6">
+          <table class="table">
+            <h2></h2>
+            <thead>
+              <tr>
+                <th>Medio de Pago</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tarjeta Débito</td>
+                <td>**** **** **** 1234</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+  
+
+  <table class="table">
+    <h2>Detalle de la venta</h2>
+    <thead>
+      <tr>
+        <th scope="col">Despacho</th>
+        <th scope="col">Fecha de Entrega</th>
+        <th scope="col">Horario</th>
+        <th scope="col">Dirección</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Despacho a Domicilio</td>
+        <td>{{ sale.date }}</td>
+        <td>{{ sale.date }} rescatar solo hora</td>
+        <td> Poner Dirección cliente</td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+
+  
+
+  <p>N° de Venta: {{ sale.id }}</p>
+  <p>Total: {{ sale.total }}</p>
+  <p>Fecha: {{ sale.date }}</p>
+
+  <h3>Detalles de Productos</h3>
+  <ul>
+    {% for sold_product in sold_products %}
+    <li>
+      Producto: {{ sold_product.product.name }} Cantidad: {{
+      sold_product.quantity }}
+    </li>
+    {% endfor %}
+  </ul>
+ 
+
+  {% endblock %}
+</main>

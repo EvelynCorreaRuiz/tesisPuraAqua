@@ -5,8 +5,61 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from .forms import RegisterForm
 from django.shortcuts import get_object_or_404, redirect
-from .models import Product, Cart, CartItem, Product
+from .models import Product, Cart, CartItem, Product, Sale, SoldProduct
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.utils import timezone
+from django.db.models import Sum
+from django.db.models import F
+
+def sales_overview(request):
+    if not request.user.is_superuser:
+        return redirect('products')
+
+    # Obtén todas las ventas
+    sales = Sale.objects.all()
+
+    return render(request, 'aquaPura/sales_overview.html', {'sales': sales})
+
+@login_required
+def sale_detail(request, sale_id):
+    # Obtén la venta
+    sale = get_object_or_404(Sale, id=sale_id)
+
+    # Asegúrate de que el usuario que solicita la vista es el usuario que realizó la venta
+    if request.user != sale.user:
+        return HttpResponse("No tienes permiso para ver esta venta.")
+
+    # Obtén los productos vendidos en esta venta
+    sold_products = SoldProduct.objects.filter(sale=sale)
+
+    # Renderiza la vista
+    return render(request, 'aquaPura/sale_detail.html', {'sale': sale, 'sold_products': sold_products})
+
+@login_required
+def checkout(request):
+  # Obtén el carrito del usuario
+  cart = Cart.objects.get(user=request.user)
+
+  # Crea un nuevo objeto de Venta
+  sale = Sale.objects.create(user=request.user, total=cart.total, date=timezone.now())
+
+  # Para cada producto en el carrito, crea un nuevo objeto de ProductoVendido y disminuye la cantidad de producto en el inventario
+  for item in cart.cartitem_set.all():
+    SoldProduct.objects.create(sale=sale, product=item.product, quantity=item.quantity)
+    product = item.product
+    product.quantity -= item.quantity
+    product.save()
+
+  # Vacía el carrito
+  cart.cartitem_set.all().delete()
+
+  # Actualiza el total del carrito a 0
+  cart.total = 0
+  cart.save()
+
+  return redirect('sale_detail', sale_id=sale.id)
 
 def empty_cart(request):
     if request.method == 'POST':

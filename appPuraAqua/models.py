@@ -9,16 +9,16 @@ from django.contrib.auth.models import User
 class CustomPasswordValidator:
     def validate(self, password, user=None):
         if len(password) < 12:
-            raise ValidationError(_("La contraseña debe tener al menos 12 caracteres."))
+            raise ValidationError(_("La contraseña debe tener al menos 12 caracteres"))
         if not any(char.isdigit() for char in password):
-            raise ValidationError(_("La contraseña debe contener al menos un número."))
+            raise ValidationError(_("La contraseña debe contener al menos un número"))
         if not any(char.isupper() for char in password):
-            raise ValidationError(_("La contraseña debe contener al menos una letra mayúscula."))
+            raise ValidationError(_("La contraseña debe contener al menos una letra mayúscula"))
         if not any(char in '!@#$%^&*()_+' for char in password):
-            raise ValidationError(_("La contraseña debe contener al menos un carácter especial (!, @, #, $, %, ^, &, *, (, ), _, +)."))
+            raise ValidationError(_("La contraseña debe contener al menos un carácter especial (!, @, #, $, %, ^, &, *, (, ), _, +)"))
 
     def get_help_text(self):
-        return _("""Tu contraseña debe contener al menos 12 caracteres, un número, una letra mayúscula y un carácter especial (!, @, #, $, %, ^, &, *, (, ), _, +).""")
+        return _("""Tu contraseña debe contener al menos 12 caracteres, un número, una letra mayúscula y un carácter especial (!, @, #, $, %, ^, &, *, (, ), _, +)""")
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -58,13 +58,13 @@ class User(AbstractUser):
     
     rut_validator = RegexValidator(
         regex=r'^\d{7,8}-[\dKk]$',
-        message="El RUT debe tener el formato: 12345678-9 o 12345678-K."
+        message="El RUT debe tener el formato: 12345678-9 o 12345678-K"
     )
     rut = models.CharField(validators=[rut_validator], unique=True, max_length=10)
 
     phone_validator = RegexValidator(
         regex=r'^\+56\d{9}$',
-        message="El número de teléfono debe tener el formato: +56912345678."
+        message="El número de teléfono debe tener el formato: +56912345678"
     )
     phone = models.CharField(validators=[phone_validator], max_length=12)
     address = models.CharField(max_length=50) 
@@ -91,6 +91,17 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+
+class Sale(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateTimeField(auto_now_add=True)
+    items = models.ManyToManyField(Product, through='SoldProduct')
+
+class SoldProduct(models.Model):
+    sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
 

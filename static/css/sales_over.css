@@ -1,0 +1,13 @@
+.table-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table {
+    max-width: 1400px;
+    margin: 50px;
+}
+h2{
+    text-align: center;
+}
