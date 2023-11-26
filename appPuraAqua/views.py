@@ -12,6 +12,29 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.db.models import Sum
 from django.db.models import F
+from .forms import ProfileUpdateForm
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+
+
+
+@login_required
+def profile(request):
+    form = ProfileUpdateForm(instance=request.user)
+    return render(request, 'registration/profile.html', {'form': form})
+
+
+def profile_update(request):
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Actualiza la sesión para que no se invalide después de cambiar la contraseña
+            messages.success(request, 'Tu perfil ha sido actualizado.')
+            return redirect('profile')
+    else:
+        form = ProfileUpdateForm(instance=request.user)
+    return render(request, 'registration/profile.html', {'form': form})
 
 def sales_overview(request):
     if not request.user.is_superuser:
@@ -37,10 +60,17 @@ def sale_detail(request, sale_id):
     # Renderiza la vista
     return render(request, 'aquaPura/sale_detail.html', {'sale': sale, 'sold_products': sold_products})
 
+from django.contrib import messages
+
 @login_required
 def checkout(request):
   # Obtén el carrito del usuario
   cart = Cart.objects.get(user=request.user)
+
+  # Comprueba si el total del carrito es 0
+  if cart.total == 0:
+    messages.error(request, 'No puedes realizar el checkout con un carrito vacío.')
+    return redirect('carrito')
 
   # Crea un nuevo objeto de Venta
   sale = Sale.objects.create(user=request.user, total=cart.total, date=timezone.now())
@@ -73,6 +103,9 @@ def empty_cart(request):
 
 def remove_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
+    # Resta el precio del artículo del total del carrito
+    cart_item.cart.total -= cart_item.product.price * cart_item.quantity
+    cart_item.cart.save()
     cart_item.delete()
     return redirect('carrito')
 
@@ -80,6 +113,9 @@ def increase_quantity(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
     cart_item.quantity += 1
     cart_item.save()
+    # Aumenta el total del carrito
+    cart_item.cart.total += cart_item.product.price
+    cart_item.cart.save()
     return redirect('carrito')
 
 def decrease_quantity(request, item_id):
@@ -87,6 +123,9 @@ def decrease_quantity(request, item_id):
     if cart_item.quantity > 1:
         cart_item.quantity -= 1
         cart_item.save()
+        # Disminuye el total del carrito
+        cart_item.cart.total -= cart_item.product.price
+        cart_item.cart.save()
     return redirect('carrito')
 
 @login_required

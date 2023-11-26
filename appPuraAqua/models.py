@@ -14,11 +14,11 @@ class CustomPasswordValidator:
             raise ValidationError(_("La contraseña debe contener al menos un número"))
         if not any(char.isupper() for char in password):
             raise ValidationError(_("La contraseña debe contener al menos una letra mayúscula"))
-        if not any(char in '!@#$%^&*()_+' for char in password):
-            raise ValidationError(_("La contraseña debe contener al menos un carácter especial (!, @, #, $, %, ^, &, *, (, ), _, +)"))
+        if not any(char in '!@#$%^&*()_+.' for char in password):  # Agregado el punto '.' aquí
+            raise ValidationError(_("La contraseña debe contener al menos un carácter especial (!, @, #, $, %, ^, &, *, (, ), _, +, .)"))  # Agregado el punto '.' aquí
 
     def get_help_text(self):
-        return _("""Tu contraseña debe contener al menos 12 caracteres, un número, una letra mayúscula y un carácter especial (!, @, #, $, %, ^, &, *, (, ), _, +)""")
+        return _("""Tu contraseña debe contener al menos 12 caracteres, un número, una letra mayúscula y un carácter especial (!, @, #, $, %, ^, &, *, (, ), _, +, .)""")  # Agregado el punto '.' aquí
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -39,7 +39,7 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
         return self.create_user(email, password, **extra_fields)
-
+    
 class Comuna(models.Model):
     name_comuna = models.CharField(max_length=50)
 
@@ -49,7 +49,7 @@ class Comuna(models.Model):
 class User(AbstractUser):
     username = models.CharField(max_length=150, unique=True, blank=True, null=True)  # username is not required
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name', "rut"]
 
     objects = CustomUserManager()  # use the custom manager
 
@@ -68,8 +68,13 @@ class User(AbstractUser):
     )
     phone = models.CharField(validators=[phone_validator], max_length=12)
     address = models.CharField(max_length=50) 
-    city = models.CharField(max_length=20) 
-    numberAddress = models.CharField(max_length=10)
+    city = models.CharField(max_length=20)
+
+    number_validator = RegexValidator(
+        regex=r'^\d+$',
+        message="El número de dirección debe contener solo dígitos"
+    )
+    numberAddress = models.CharField(validators=[number_validator], max_length=10)
     birthdate = models.DateField(default=date.today)
 
     class Meta:
@@ -80,14 +85,15 @@ class User(AbstractUser):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     quantity = models.PositiveIntegerField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=0)
+    imagen = models.ImageField(upload_to='products', null=True, blank=True)
 
     def __str__(self):
         return self.name
     
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total = models.DecimalField(max_digits=10, decimal_places=0, default=0)
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -96,7 +102,7 @@ class CartItem(models.Model):
 
 class Sale(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
+    total = models.DecimalField(max_digits=10, decimal_places=0)
     date = models.DateTimeField(auto_now_add=True)
     items = models.ManyToManyField(Product, through='SoldProduct')
 

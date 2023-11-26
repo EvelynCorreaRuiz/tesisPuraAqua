@@ -10,6 +10,9 @@
 </head>
 <body>
 
+
+
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark full-width-navbar">
         {% if request.user.is_authenticated %}
         <div class="container-fluid">
@@ -49,11 +52,22 @@
         <h2><a style="text-align: center; padding-right: 5cqi;">{{ user.first_name | upper }}, éste es el resumen de tu pedido</a>
             </h2>
 
+            {% if messages %}
+<div class="container mt-2">
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
          <!-- lista de productos en el carrito -->
          <div class="carrito-content">
             {% for item in items %}
             <div class="carrito-item">
-                <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" />
+                <img src="{{ item.product.imagen.url }}" alt="{{ item.product.name }}" />
                 <div class="carrito-item-txt">
                     <h3>{{ item.product.name }}</h3>
                     <p class="precio">${{ item.price }}</p>

@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import home, products, exit, register, carrito
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', home, name='home'),
@@ -17,7 +19,8 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
     path('sale/<int:sale_id>/', views.sale_detail, name='sale_detail'),
     path('sales_overview/', views.sales_overview, name='sales_overview'),
-    path('sales_overview/', views.sales_overview, name='sales_overview'),
-]
+    path('profile/', views.profile, name='profile'),
+    path('profile_update/', views.profile_update, name='profile_update'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

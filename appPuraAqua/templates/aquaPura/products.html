@@ -24,7 +24,7 @@
               <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">Perfil de usuario</a>
+              <a class="nav-link" aria-current="page" href="{%  url 'profile' %}">Perfil de usuario</a>
             </li>
             
               <li class="nav-item">
@@ -134,7 +134,7 @@
       <div class="product-content">
         <!-- Producto 1 -->
         <div class="product">
-          <img src="{{ products.0.image_url }}" alt="{{ products.0.name }}" />
+          <img src="{{ products.0.imagen.url }}" alt="{{ products.0.name }}" />
           <div class="product-txt">
             <h3>{{ products.0.name }}</h3>
             <p class="precio">${{ products.0.price }}</p>
@@ -148,7 +148,7 @@
 
         <!-- Producto 2 -->
         <div class="product">
-          <img src="{{ products.1.image_url }}" alt="{{ products.1.name }}" />
+          <img src="{{ products.1.imagen.url }}" alt="{{ products.1.name }}" />
           <div class="product-txt">
             <h3>{{ products.1.name }}</h3>
             <p class="precio">${{ products.1.price }}</p>
@@ -162,7 +162,7 @@
 
         <!-- Producto 3 -->
         <div class="product">
-          <img src="{{ products.2.image_url }}" alt="{{ products.2.name }}" />
+          <img src="{{ products.2.imagen.url }}" alt="{{ products.2.name }}" />
           <div class="product-txt">
             <h3>{{ products.2.name }}</h3>
             <p class="precio">${{ products.2.price }}</p>
