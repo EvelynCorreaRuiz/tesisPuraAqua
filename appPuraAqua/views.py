@@ -15,8 +15,23 @@ from django.db.models import F
 from .forms import ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from .models import Sale
+from django.contrib import messages
 
+def purchase_history(request):
+    # Asegúrate de que el usuario esté autenticado
+    if not request.user.is_authenticated:
+        return redirect('login')  # redirige al usuario a la página de inicio de sesión si no está autenticado
 
+    # Obtiene todas las ventas para el usuario actual
+    sales = Sale.objects.filter(user=request.user)
+
+    # Para cada venta, obtén los productos vendidos y añádelos a la venta como un atributo
+    for sale in sales:
+        sale.products = sale.items.all()
+
+    # Renderiza la plantilla con las ventas como contexto
+    return render(request, 'aquaPura/purchase_history.html', {'sales': sales})
 
 @login_required
 def profile(request):
@@ -57,10 +72,13 @@ def sale_detail(request, sale_id):
     # Obtén los productos vendidos en esta venta
     sold_products = SoldProduct.objects.filter(sale=sale)
 
-    # Renderiza la vista
-    return render(request, 'aquaPura/sale_detail.html', {'sale': sale, 'sold_products': sold_products})
+    # Calcula el total de la venta
+    total = sum([p.product.price * p.quantity for p in sold_products])
 
-from django.contrib import messages
+    # Renderiza la vista
+    return render(request, 'aquaPura/sale_detail.html', {'sale': sale, 'sold_products': sold_products, 'total': total})
+
+
 
 @login_required
 def checkout(request):

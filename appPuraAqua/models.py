@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
 
+
 class CustomPasswordValidator:
     def validate(self, password, user=None):
         if len(password) < 12:
@@ -47,6 +48,11 @@ class Comuna(models.Model):
         return self.name_comuna
 
 class User(AbstractUser):
+    name_validator = RegexValidator(
+        regex=r'^[a-zA-Z]+$',
+        message="El nombre y apellido solo deben contener letras"
+    )
+        
     username = models.CharField(max_length=150, unique=True, blank=True, null=True)  # username is not required
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', "rut"]
@@ -54,7 +60,10 @@ class User(AbstractUser):
     objects = CustomUserManager()  # use the custom manager
 
     email = models.EmailField(unique=True)  # ensure email is unique
-    last_name2 = models.CharField(max_length=20)
+    first_name = models.CharField(validators=[name_validator], max_length=30)
+    last_name = models.CharField(validators=[name_validator], max_length=30)
+    last_name2 = models.CharField(validators=[name_validator], max_length=20)
+
     
     rut_validator = RegexValidator(
         regex=r'^\d{7,8}-[\dKk]$',
@@ -113,14 +122,6 @@ class SoldProduct(models.Model):
 
 
 
-
-
-
-"""la password Contraseña: 
-- Debe tener un mínimo de 12 caracteres. 
-- Debe contener al menos una letra mayúscula. 
-- Debe contener al menos un número. 
-- Debe contener al menos un carácter especial ( !, @, etc.). """
 
 #asegurar que sea mayo de 18 años
 

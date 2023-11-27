@@ -1,0 +1,32 @@
+input{
+    width: 500px;
+    height: 45px;
+    border-width: 0.5px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #adbddf;
+    
+}
+input:focus{
+    outline: 2px solid #ff0000;
+}
+
+select{
+    width: auto;
+    height: 45px;
+    border-width: 0.5px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #adbddf;
+}
+.container_profile{
+    max-width: 800px;
+    justify-content: left;
+    margin-left: 30px;
+}
+
+.titulo{
+    text-align: auto;
+    padding: auto;
+
+}

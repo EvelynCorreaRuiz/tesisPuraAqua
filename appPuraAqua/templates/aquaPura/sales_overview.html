@@ -1,3 +1,6 @@
+{% extends "aquaPura/base.html" %}
+{% load mathfilters %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,30 +13,11 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/static/css/sales_over.css" />
-    {% extends "aquaPura/base.html" %}
     <title>Document</title>
   </head>
   <body>
     {% block content %}
     <h2 class="mt-4">Ventas Realizadas</h2>
-    <!-- <table>
-      <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>Total</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for sale in sales %}
-        <tr>
-          <td>{{ sale.user.first_name }} {{ sale.user.last_name }}</td>
-          <td>${{ sale.total }}</td>
-          <td>{{ sale.date }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table> -->
 
     <div class="table-container">
       <table class="table">
@@ -42,17 +26,33 @@
             <th scope="col">Cliente</th>
             <th scope="col">Total</th>
             <th scope="col">Fecha</th>
+            <th scope="col">Productos</th>
           </tr>
         </thead>
         <tbody>
-          {% for sale in sales %}
-          <tr>
-            <td>{{ sale.user.first_name }} {{ sale.user.last_name }}</td>
-            <td>${{ sale.total }}</td>
-            <td>{{ sale.date }}</td>
-          </tr>
-
-          {% endfor %}
+        {% for sale in sales %}
+        <tr>
+          <td>{{ sale.user.first_name }} {{ sale.user.last_name }}</td>
+          <td>${{ sales_totals.sale.id }}</td>
+          <td>{{ sale.date }}</td>
+          <td>
+            <ul>
+            {% for sold_product in sale.soldproduct_set.all %}
+              <li>
+                {{ sold_product.product.name }} 
+                (Cantidad: {{ sold_product.quantity }}, 
+                Precio: {{ sold_product.product.price }}, 
+                Total: {{ sold_product.quantity|multiply:sold_product.product.price }})
+              </li>
+            {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" style="text-align: right;">Total de la venta:</td>
+          <td>${{ sales_totals.sale.id }}</td>
+        </tr>
+        {% endfor %}
         </tbody>
       </table>
     </div>

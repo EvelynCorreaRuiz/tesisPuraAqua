@@ -20,7 +20,7 @@ input {
     margin: 5px 0;
     padding: 12px 25px;
     border-radius: 25px;
-    border: 1px solid #159A9C;
+    border: 1px solid #43a3a5;
     outline: none;
     background-color: #fff;
 }
@@ -34,8 +34,8 @@ input {
 }
 
 .carrito h2 {
-    color: #007bff;
-    border-bottom: 2px solid #007bff;
+    color: #43a3a5;
+    border-bottom: 2px solid #43a3a5;
     padding-bottom: 10px;
     margin-bottom: 20px;
 }

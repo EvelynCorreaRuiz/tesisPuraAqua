@@ -1,4 +1,4 @@
-{% extends 'aquaPura/base.html' %}{% block content %}
+{% extends 'aquaPura/base.html' %}{% load my_filters %}{% block content %}
 
 <main>
   <div class="mt-4" style="color: #43a3a5; padding-left: 5cqi">
@@ -29,9 +29,9 @@
               <tbody>
                 <tr>
                   <td>Despacho a Domicilio</td>
-                  <td>{{ sale.date }}</td>
-                  <td>{{ sale.date }} rescatar solo hora</td>
-                  <td> Poner Dirección cliente</td>
+                  <td>{{ sale.date|date:"d M Y" }}</td> <!-- Muestra solo la fecha -->
+                  <td>{{ sale.date|time:"H:i" }}</td> <!-- Muestra solo la hora -->
+                  <td>{{ sale.user.address }} {{ sale.user.numberAddress }}</td>
                 </tr>
               </tbody>
             </table>
@@ -65,23 +65,27 @@
             </thead>
             <table class="table table-borderless">
               <thead>
-                  <thead>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th> 
-                  </thead>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Total</th> 
               </thead>
               <tbody>
+                {% for sold_product in sold_products %}
                 <tr>
-                  {% for sold_product in sold_products %}
                   <td>{{sold_product.product.name }}</td>
                   <td>{{sold_product.quantity }}</td>
-                  <td>poner precio</td>
-                  {% endfor %}
+                  <td>{{sold_product.product.price}}</td>
+                  <td>{{ sold_product.quantity|multiply:sold_product.product.price }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan="3" style="text-align: right;">Total de la compra:</td>
+                  <td>{{ total }}</td>
                 </tr>
               </tbody>
             </table>
           </table>
         </div>
-</main>
-{% endblock %}
+      </main>
+      {% endblock %}

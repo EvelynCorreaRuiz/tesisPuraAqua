@@ -1,0 +1,54 @@
+{% extends 'aquaPura/base.html' %}{% block content %} {% load my_filters %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+  </head>
+  <body>
+    <div class="mt-4" style="text-align: left; color: #159A9C; margin-left: 35px;">
+        <h2><a>Historial de Compras de: {{ user.first_name | upper }}</a></h2>
+     
+    </div>
+
+    
+    <div class="container">
+        <table class="table table-hover mt-4">
+            <thead>
+              <tr>
+                <th>Fecha de Venta</th>
+                <th>Total Compra</th>
+                <th>Detalles Compra</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sale in sales %}
+              <tr>
+                <td>{{ sale.date }}</td>
+                <td>{{ sale.total }}</td>
+                <td>
+                  <ul>
+                    {% for sold_product in sale.soldproduct_set.all %}
+                    <li>
+                     <strong>Producto:</strong> {{ sold_product.product.name }} 
+                      <br>
+                    <strong>Cantidad:</strong> {{sold_product.quantity }}
+                      <br> 
+                      <strong>Precio Unitario:</strong> {{ sold_product.product.price}} 
+                    <br>
+                    <strong><p style="font-size: 25px; color: #159A9C;">Total: {{sold_product.quantity|multiply:sold_product.product.price }}</p></strong>  
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+     </div>
+   
+  </body>
+</html>
+{% endblock %}
