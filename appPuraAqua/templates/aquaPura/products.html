@@ -128,60 +128,37 @@
       </div>
     </section> -->
 
-    <!-- Inicio Contenido Principal -->
-
-    <main class="products container mt-4" id="lista-1">
+<!-- Inicio Contenido Principal -->
+<div class="container_product">
+  <main class="products mt-4" id="lista-1">
+    <div class="mt-4 center">
       <h2>Nuestros Productos</h2>
+    </div>
+    
 
-      <!-- lista de productos -->
-      <div class="product-content">
-        <!-- Producto 1 -->
-        <div class="product">
-          <img src="{{ products.0.imagen.url }}" alt="{{ products.0.name }}" />
+    <!-- lista de productos -->
+    <div class="product-content">
+      {% for product in products %}
+        <div class="product ">
+          <img src="{{ product.imagen.url }}" alt="{{ product.name }}" />
           <div class="product-txt">
-            <h3>{{ products.0.name }}</h3>
-            <p class="precio">${{ products.0.price }}</p>
-            <form action="{% url 'add_to_cart' products.0.id %}" method="post">
+            <h3>{{ product.name }}</h3>
+            <p class="precio">${{ product.price }}</p>
+            <form action="{% url 'add_to_cart' product.id %}" method="post">
               {% csrf_token %}
-              <input type="number" name="quantity" min="1" max="{{ products.0.quantity }}" value="1" />
+              <input class="input_cantidad" type="number" name="quantity" min="1" max="{{ product.quantity }}" value="1" />
               <input type="submit" value="Agregar" />
             </form>
           </div>
         </div>
-
-        <!-- Producto 2 -->
-        <div class="product">
-          <img src="{{ products.1.imagen.url }}" alt="{{ products.1.name }}" />
-          <div class="product-txt">
-            <h3>{{ products.1.name }}</h3>
-            <p class="precio">${{ products.1.price }}</p>
-            <form action="{% url 'add_to_cart' products.1.id %}" method="post">
-              {% csrf_token %}
-              <input type="number" name="quantity" min="1" max="{{ products.1.quantity }}" value="1"/>
-              <input type="submit" value="Agregar" />
-            </form>
-          </div>
-        </div>
-
-        <!-- Producto 3 -->
-        <div class="product">
-          <img src="{{ products.2.imagen.url }}" alt="{{ products.2.name }}" />
-          <div class="product-txt">
-            <h3>{{ products.2.name }}</h3>
-            <p class="precio">${{ products.2.price }}</p>
-            <form action="{% url 'add_to_cart' products.2.id %}" method="post">
-              {% csrf_token %}
-              <input type="number" name="quantity" min="1" max="{{ products.2.quantity }}" value="1"/>
-              <input type="submit" value="Agregar"/>
-            </form>
-          </div>
-        </div>
-
-
-      </div>
-    </main>
-    <!-- Fin Contenido Principal -->
-
+      {% endfor %}
+    </div>
+  </main>
+  <!-- Fin Contenido Principal -->
+</div>
+    
+    
+   
     <!-- Footer -->
     <footer
       class="text-center text-lg-start text-white"

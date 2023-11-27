@@ -26,7 +26,7 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Perfil de usuario</a>
+                <a class="nav-link" aria-current="page" href="{%  url 'profile' %}">Perfil de usuario</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'products' %}">Productos</a>
@@ -100,10 +100,11 @@
                 <input type="submit" value="Finalizar compra">
             </form>
         </div>
-        <!-- <div class="carrito-back">
-            <a href="{% url 'products' %}">Volver a productos</a>
-        </div> -->
     </main>
+
+
+
+    
     <footer class="text-center text-lg-start text-white" style="background-color: #43a3a5">
 <!-- Grid container -->
 <div class="container p-4 pb-0">
@@ -138,10 +139,8 @@
       </p>
     </div>
 
-    <!-- Grid column -->
     <hr class="w-100 clearfix d-md-none"/>
 
-    <!-- Grid column -->
     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
       <h6 class="text-uppercase mb-4 font-weight-bold">¡Contáctanos!</h6>
       <p><i class="fas fa-home mr-3"></i> Calle Falsa #123</p>
@@ -149,23 +148,19 @@
       <p><i class="fas fa-phone mr-3"></i> +569 12345678</p>
       <p><i class="fas fa-print mr-3"></i> +569 87654321</p>
     </div>
-    <!-- Grid column -->
   </div>
-  <!--Grid row-->
 </section>
-<!-- Section: Links -->
+
 
 <hr class="my-3">
 
-<!-- Section: Copyright -->
+
 <section class="p-3 pt-0">
   <div class="row d-flex align-items-center">
     <!-- Grid column -->
     <div class="col-md-7 col-lg-8 text-center text-md-start">
     </div>
-    <!-- Grid column -->
 
-    <!-- Grid column -->
     <div class="col-md-7 col-lg-8 ml-lg-0 text-center text-md-end">
       <!-- Facebook -->
       <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-facebook-f"></i>Facebook</a>
@@ -175,12 +170,9 @@
       <a class="btn btn-outline-light btn-floating m-1" class="text-white"role="button"><i class="fab fa-instagram"></i>Instagram</a>
     </div>
 
-    <!-- Grid column -->
   </div>
 </section>
-<!-- Section: Copyright -->
 </div>
-<!-- Grid container -->
 </footer>
 
 
