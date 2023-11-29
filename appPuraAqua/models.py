@@ -122,12 +122,3 @@ class SoldProduct(models.Model):
 
 
 
-
-#asegurar que sea mayo de 18 años
-
-"""Confirmación de Registro: 
-Se debe generar una confirmación de registro o un correo electrónico de bienvenida 
-después de que el usuario complete el proceso de registro con éxito. 
-"""
-
-# debe logear con el correo electronico y la contraseña
