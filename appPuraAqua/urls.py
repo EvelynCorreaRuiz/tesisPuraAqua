@@ -23,6 +23,7 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile_update/', views.profile_update, name='profile_update'),
     path('purchase_history/', purchase_history, name='purchase_history'),
+    path('verify/', views.verify, name='verify'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

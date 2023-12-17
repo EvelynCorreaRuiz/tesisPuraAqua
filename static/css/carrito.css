@@ -56,16 +56,17 @@ input {
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+.carrito-item-txt {
+    text-align: center;
+}
 
 .carrito-item img {
     width: 150px;
     height: 150px;
     margin-bottom: 15px;
     border-radius: 75px;
-}
-
-.carrito-item-txt {
-    text-align: center;
+    display: block; /* Añade display: block para centrar con margin: auto */
+    margin: auto; /* Centra horizontalmente */
 }
 
 .precio {
@@ -102,3 +103,5 @@ input {
 .vaciar_carrito {
     align-content: center;
 }
+
+

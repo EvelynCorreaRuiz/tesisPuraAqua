@@ -1,0 +1,41 @@
+{% extends 'aquaPura/base.html' %} {% block content %}
+<link rel="stylesheet" href="/static/css/verify.css" />
+<body>
+  <div class="background-radial-gradient overflow-hidden">
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title text-center mb-4">
+                Verificación de Cuenta</h2>
+              <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="code" class="form-label"
+                    >Código de verificación</label>
+                  <input type="text" id="code" name="code" class="form-control" />
+                  <h3 class="texto-verify">
+                    Recuerda revisar Spam y Correo no Deseado.
+                  </h3>
+
+                  {% if form.code.errors %}
+                  <div class="alert alert-danger mt-2">
+                    {{ form.code.errors }}
+                  </div>
+
+                  {% endif %}
+                </div>
+                <button type="submit" class="btn btn-dark btn-block mb-4">
+                  Verificar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+{% endblock %}

@@ -20,36 +20,43 @@
           <div class="col-12 ">
               <label for="id_email" class="col-form-label d-flex align-items-center">Email</label>
               {{ form.email }}
+              {{ form.email.errors }}
           </div>
       
           <div class="col-12">
               <label for="inputCity" class="col-form-label d-flex align-items-center">Dirección</label>
               {{ form.address }}   
+              {{ form.address.errors }}
           </div>
       
           <div class="col-12" >
               <label for="id_numeracion" class="col-form-label d-flex align-items-center">Número Dirección</label>
               {{ form.numberAddress }}
+              {{ form.numberAddress.errors }}
           </div>
       
           <div class="col-12">
               <label for="id_comuna" class="col-form-label d-flex align-items-center">Comuna:</label>
               {{ form.comuna }}
+              {{ form.comuna.errors }}
           </div>
       
           <div class="col-12 ">
               <label for="id_phone_number" class="col-form-label d-flex align-items-center">Fono:</label>
               {{form.phone }}     
+              {{ form.phone.errors }}
           </div>
       
           <div class="col-12">
               <label for="password1" class="col-form-label d-flex align-items-center">Nueva Contraseña:</label>
               {{ form.password1 }}
+              {{ form.password1.errors }}
           </div>
       
           <div class="col-12">
               <label for="password2" class="col-form-label d-flex align-items-center ">Confirmar Nueva Contraseña:</label>
               {{ form.password2 }}
+              {{ form.password2.errors }}
           </div>
       
           <!-- Agrega aquí los demás campos que el usuario puede actualizar -->

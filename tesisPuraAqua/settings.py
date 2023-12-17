@@ -138,3 +138,11 @@ LOGIN_REDIRECT_URL = 'products'
 LOGOUT_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'appPuraAqua.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'aquapurapp@gmail.com'  # Reemplaza esto con tu dirección de correo electrónico de Gmail
+EMAIL_HOST_PASSWORD = 'hvrxacmvufobutgv'  # Reemplaza esto con la contraseña de tu correo electrónico de Gmail
+

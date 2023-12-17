@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
-from .forms import RegisterForm
+from .forms import RegisterForm, VerificationForm
 from django.shortcuts import get_object_or_404, redirect
 from .models import Product, Cart, CartItem, Product, Sale, SoldProduct
 from django.http import JsonResponse
@@ -17,6 +17,32 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from .models import Sale
 from django.contrib import messages
+from .models import User
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.core.exceptions import ObjectDoesNotExist
+
+def verify(request):
+    if request.method == 'POST':
+        form = VerificationForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data.get('code')
+            try:
+                user = User.objects.get(verification_code=code)
+                user.is_active = True  # Activa el usuario
+                user.verification_code = None  # Borra el código de verificación
+                user.save()
+
+                # Autentica y haz login al usuario
+                login(request, user)
+
+                return redirect('home')  # Redirect to home page
+            except ObjectDoesNotExist:
+                form.add_error('code', 'El código de verificación es incorrecto. Por favor, inténtalo de nuevo.')
+    else:
+        form = VerificationForm()
+    return render(request, 'registration/verify.html', {'form': form})
 
 def purchase_history(request):
     # Asegúrate de que el usuario esté autenticado
@@ -195,12 +221,36 @@ def exit(request):
     return redirect('home')
     
 
+from django.core.mail import send_mail
+
 def register(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('products')
+            user = form.save(commit=False)  # No guardes el usuario todavía
+            user.is_active = False  # Haz que el usuario esté inactivo
+            user.save()  # Ahora guarda el usuario
+
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+
+            # Genera un código de verificación y guárdalo en el usuario
+            verification_code = User.objects.make_random_password()  # Genera un código aleatorio
+            user.verification_code = verification_code
+            user.save()
+
+            # Envía un correo electrónico con el código de verificación
+            send_mail(
+                'Código de verificación',
+                f'Tu código de verificación es {verification_code}.',
+                'from@example.com',  # Reemplaza con tu dirección de correo electrónico
+                [user.email],
+                fail_silently=False,
+            )
+
+            return redirect('verify')  # Redirect to verification page
     else:
         form = RegisterForm()
     return render(request, 'registration/register.html', {'form': form})
+
+#mensajes de error

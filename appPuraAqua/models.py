@@ -1,3 +1,4 @@
+import uuid
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import RegexValidator
 from django.db import models
@@ -41,6 +42,12 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
         return self.create_user(email, password, **extra_fields)
     
+class City(models.Model):
+    name_city = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name_city
+    
 class Comuna(models.Model):
     name_comuna = models.CharField(max_length=50)
 
@@ -77,7 +84,6 @@ class User(AbstractUser):
     )
     phone = models.CharField(validators=[phone_validator], max_length=12)
     address = models.CharField(max_length=50) 
-    city = models.CharField(max_length=20)
 
     number_validator = RegexValidator(
         regex=r'^\d+$',
@@ -90,6 +96,8 @@ class User(AbstractUser):
         db_table = 'Usuario'
 
     comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE, null=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
+    verification_code = models.CharField(default=uuid.uuid4, unique=True, max_length=20)
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
