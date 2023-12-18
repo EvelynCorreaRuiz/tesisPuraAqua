@@ -1,175 +1,140 @@
-{% extends 'aquaPura/base.html' %} {% block content %}
-
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      integrity="sha384-P5BfrhzQYefOnJkayWhJwb41w8R9Np1qMz2vAgbA/UK7eBYYDMvOqOz3Zh35eWoJ"
-      crossorigin="anonymous"/>
+{% extends 'aquaPura/base.html' %} 
+{% block content %}
     <link rel="stylesheet" href="/static/css/login.css" />
-  </head>
-  <body>
-    <section class="background-radial-gradient overflow-hidden">
-      <form method="post" action="{% url 'verify' %}">
-        {% csrf_token %}
-
-        
+    <body>
+      <section class="background-radial-gradient overflow-hidden">
         <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-          <div class="row gx-lg-5 align-items-center mb-5">
-            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-              <h1
-                class="my-5 display-5 fw-bold ls-tight"
-                style="color: hsl(218, 81%, 95%)"
-              >
-                LA MEJOR FORMA <br />
-                <span style="color: hsl(218, 81%, 75%)">de hidratarte</span>
-              </h1>
-              <p
-                class="mb-4 opacity-70"
-                style="color: hsl(218, 81%, 85%); text-align: justify"
-              >
-                Aqua Pura es una tienda especializada en la venta de aguas
-                purificadas y sus derivados, comprometida con brindar a sus
-                clientes productos de la más alta calidad para satisfacer sus
-                necesidades de hidratación y bienestar. Nos destacamos por
-                ofrecer una amplia variedad de opciones, desde aguas purificadas
-                naturalmente hasta productos innovadores relacionados con la
-                pureza del agua.
-              </p>
-            </div>
-
-            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
-              <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-              <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
-              
-              <div class="card bg-glass">
-                <div class="card-body px-4 py-5 px-md-5">
-                  <form>
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="id_username">Correo Electrónico</label>
-                      <input type="text" class="form-control" name="username" required/>
-                    </div>
-                    <style>
-                      .card {
-                        transition: box-shadow 0.3s ease-in-out;
-                        box-shadow: 0 0 10px rgba(255, 255, 255, 0); /* Empieza sin sombra */
-                      }
-                    
-                      .card:hover {
-                        box-shadow: 0 0 20px rgb(30, 2, 53); /* Ajusta la sombra al pasar el mouse */
-                      }
-                    </style>
-
-                      <script>
-                        const card = document.querySelector('.card');
-
-                        card.addEventListener('mousemove', (e) => {
-                          // ... (tu lógica actual)
-                          
-                          // Cambia el box-shadow para el efecto de iluminación
-                          card.style.boxShadow = `0 0 ${minDistance * 90}px rgba(255, 255, 255, 0.5)`;
-                        });
-
-                        card.addEventListener('mouseleave', () => {
-                          // ... (restaura tu lógica actual)
-
-                          // Restaura el box-shadow al valor predeterminado
-                          card.style.boxShadow = '0 0 100px rgba(255, 255, 255, 0)';
-                        });
-                      </script>
-
-                    
-                   
-                   
-
-                    <!-- Password input -->
-
-                    <!--   <div class="form-outline mb-4">
-                  <label class="form-label" for="id_password">Contraseña</label>
-                  <input type="password" class="form-control" name="password" required/>
-                 </div> -->
-
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="id_password"
-                        >Contraseña</label>
-                      <div class="password-input-container">
-                        <input
-                          type="password"
-                          class="form-control"
-                          name="password"
-                          id="id_password" required/>
-                        <button type="button" id="showPasswordBtn" onclick="togglePasswordVisibility()">Mostrar</button>
-                      </div>
-                    </div>
-
-                    <style>
-                      .password-input-container {
-                        position: relative;
-                      }
-
-                      #showPasswordBtn {
-                        position: absolute;
-                        top: 50%;
-                        right: 1px;
-                        transform: translateY(-50%);
-                        padding: 0 10px;
-                        cursor: pointer;
-                        border: 0;
-                        color: blueviolet;
-                        background-color: #fff;
-                      }
-                    </style>
-
-                    <script>
-                      function togglePasswordVisibility() {
-                        var passwordInput =
-                          document.getElementById("id_password");
-                        var showPasswordBtn =
-                          document.getElementById("showPasswordBtn");
-
-                        if (passwordInput.type === "password") {
-                          passwordInput.type = "text";
-                          showPasswordBtn.textContent = "Ocultar";
-                        } else {
-                          passwordInput.type = "password";
-                          showPasswordBtn.textContent = "Mostrar";
-                        }
-                      }
-                    </script>
-
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-dark btn-block mb-4">
-                      Iniciar Sesión
-                    </button>
-
-                    <!-- Register buttons -->
-                    <div class="text-center">
-                      <p>O inicie sesión con:</p>
-                      <a class="btn btn-link btn-floating mx-1" role="button" href="https://www.facebook.com/?locale=es_LA">
-                        <i class="fab fa-facebook-f"></i></a>  
-                      </a>
-
-                      <a class="btn btn-link btn-floating mx-1" role="button" href="https://www.instagram.com/">
-                        <i class="fab fa-instagram"></i></a>  
-                      </a>
-
-                      <a class="btn btn-link btn-floating mx-1" role="button" href="https://twitter.com/i/flow/login">
-                        <i class="fab fa-twitter"></i></a>  
-                      </a>
-                    </div>
-                  </form>
+            <div class="row gx-lg-5 align-items-center mb-5">
+                <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                    <h1
+                        class="my-5 display-5 fw-bold ls-tight"
+                        style="color: hsl(218, 81%, 95%)"
+                    >
+                        LA MEJOR FORMA <br />
+                        <span style="color: hsl(218, 81%, 75%)">de hidratarte</span>
+                    </h1>
+                    <p
+                        class="mb-4 opacity-70"
+                        style="color: hsl(218, 81%, 85%); text-align: justify"
+                    >
+                        Aqua Pura es una tienda especializada en la venta de aguas
+                        purificadas y sus derivados, comprometida con brindar a sus
+                        clientes productos de la más alta calidad para satisfacer sus
+                        necesidades de hidratación y bienestar. Nos destacamos por
+                        ofrecer una amplia variedad de opciones, desde aguas purificadas
+                        naturalmente hasta productos innovadores relacionados con la
+                        pureza del agua.
+                    </p>
                 </div>
-              </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                    <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                    <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+                    
+                    <div class="card bg-glass">
+                        <div class="card-body px-4 py-5 px-md-5">
+                            <form method="POST">
+                                {% csrf_token %}
+
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="id_username">Correo Electrónico</label>
+                                    <input type="text" class="form-control" name="username" required/>
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="id_password">Contraseña</label>
+                                    <div class="password-input-container">
+                                        <input type="password" class="form-control" name="password" id="id_password" required/>
+                                        <button type="button" id="showPasswordBtn" onclick="togglePasswordVisibility()">Mostrar</button>
+                                    </div>
+                                </div>
+
+                                {% for message in messages %}
+                                  <div class="alert alert-danger" role="alert">
+                                    {{ message }}
+                                  </div>
+                                {% endfor %}
+
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-dark btn-block mb-4">
+                                    Iniciar Sesión
+                                </button>
+
+                                <style>
+                                    .password-input-container {
+                                        position: relative;
+                                    }
+
+                                    #showPasswordBtn {
+                                        position: absolute;
+                                        top: 50%;
+                                        right: 1px;
+                                        transform: translateY(-50%);
+                                        padding: 0 10px;
+                                        cursor: pointer;
+                                        border: 0;
+                                        color: blueviolet;
+                                        background-color: #fff;
+                                    }
+                                </style>
+                                <!-- Register buttons -->
+                                <div class="text-center">
+                                    <p>O inicie sesión con:</p>
+                                    <a class="btn btn-link btn-floating mx-1" role="button" href="https://www.facebook.com/?locale=es_LA">
+                                        <i class="fab fa-facebook-f"></i></a>  
+                                    </a>
+
+                                    <a class="btn btn-link btn-floating mx-1" role="button" href="https://www.instagram.com/">
+                                        <i class="fab fa-instagram"></i></a>  
+                                    </a>
+
+                                    <a class="btn btn-link btn-floating mx-1" role="button" href="https://twitter.com/i/flow/login">
+                                        <i class="fab fa-twitter"></i></a>  
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </form>
     </section>
-    {% endblock %}
+
+    <script>
+      function togglePasswordVisibility() {
+          var passwordInput = document.getElementById("id_password");
+  
+          if (passwordInput.type === "password") {
+              passwordInput.type = "text";
+          } else {
+              passwordInput.type = "password";
+          }
+      }
+  
+      document.addEventListener("DOMContentLoaded", function() {
+  var messages = document.querySelectorAll('.messages .message');
+  var errorMessage = null;
+
+  for (var i = 0; i < messages.length; i++) {
+    if (messages[i].classList.contains('error')) {
+      errorMessage = messages[i].textContent;
+      break;
+    }
+  }
+
+  if (errorMessage) {
+    // Construir el mensaje de error personalizado a partir de errorMessage
+    // Ejemplo: "Correo electrónico no encontrado" o "Contraseña incorrecta"
+    var customErrorMessage = "";
+    // ... lógica para construir el mensaje ...
+    alert(customErrorMessage);
+  }
+});
+  </script>
+
   </body>
-</html>
+{% endblock %}
+
+   

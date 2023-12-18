@@ -95,6 +95,7 @@ h3 {
 .product h3 {
   font-size: 25px;
   color: #159A9C;
+  
 }
 
 .product p {
@@ -106,11 +107,11 @@ h3 {
 
 .input_cantidad {
   padding: 12px 12px;
-  border-radius: 25px;
   border: 1px solid #159A9C;
   outline: none;
   background-color: #fff;
   text-align: center;
+  margin-right: 5px;
 }
 
 form {
@@ -121,23 +122,8 @@ form {
 input {
   padding: 12px 35px;
   border-radius: 25px;
-  border: 1px solid #159A9C;
+  border: 2px solid #159A9C;
   outline: none;
   background-color: #fff;
-}
-
-@media(max-width:991px) {
-
-  .information {
-    display: none;
-  }
-
-  .oferts {
-    padding: 30px;
-    flex-direction: column;
-  }
-
-  .ofert-1 {
-    margin-bottom: 25px;
-  }
+  margin-right: auto;
 }

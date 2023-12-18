@@ -7,7 +7,7 @@ from .views import purchase_history
 
 urlpatterns = [
     path('', home, name='home'),
-    path('products/', products, name='products'),
+    path('products/', views.products, name='products'),
     path('logout/', exit, name='exit'),
     path('register/', register, name='register'),
     path('carrito/', carrito, name='carrito'),

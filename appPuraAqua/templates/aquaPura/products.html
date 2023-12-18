@@ -2,223 +2,290 @@
 {% load static %}
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"/>
     <title>Aqua Pura App</title>
     <link rel="stylesheet" href="/static/css/styleIndex.css" />
   </head>
 
   <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark full-width-navbar">
       {% if request.user.is_authenticated %}
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}">Aqua Pura</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
+              <!-- <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'home' %}"
+                >Inicio</a
+              > -->
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{%  url 'profile' %}">Perfil de usuario</a>
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="{%  url 'profile' %}"
+                >Perfil de usuario</a
+              >
             </li>
-            
+
             {% if request.user.is_superuser %}
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{% url 'sales_overview' %}">Ver resumen de ventas</a>
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="{% url 'sales_overview' %}"
+                >Ver resumen de ventas</a
+              >
             </li>
-          {% endif %}
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'purchase_history' %}">Ver historial de compras</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'exit' %}">Salir</a>
-              </li>
-              {% if request.user.is_superuser %}
+            {% endif %}
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="{% url 'purchase_history' %}"
+                >Ver historial de compras</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'exit' %}">Salir</a>
+            </li>
+            {% if request.user.is_superuser %}
           </ul>
           {% endif %}
-          <!-- <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
-          </form> -->
         </div>
-        <a style="color: aliceblue; text-align: center;">¡Bienvenid@! {{ user.first_name | upper }}</a>
+        <a style="color: aliceblue; text-align: center"
+          >¡Bienvenid@! {{ user.first_name | upper }}</a
+        >
         {% endif %}
       </div>
-        <ul>
-            <li class="submenu mt-2" style="padding-right: 5cqi;">
-              <a href="{% url 'carrito' %}">
-                <!--AQUI DEBERÍA HACER EL ENLACE DEL CARRITO PARA LA PAG "CARRITO.HTML" -->
-                <svg
-                  id="img-carrito"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-shopping-cart"
-                  width="40"
-                  height="40"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="#159A9C"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                  <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                  <path d="M17 17h-11v-14h-2" />
-                  <path d="M6 5l14 1l-1 7h-13" />
-                </svg>
-              </a>
-            </li>
-          </ul>
+      <ul>
+        <li class="submenu mt-2" style="padding-right: 5cqi">
+          <a href="{% url 'carrito' %}">
+            <svg
+              id="img-carrito"
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-shopping-cart"
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#159A9C"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+              <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+              <path d="M17 17h-11v-14h-2" />
+              <path d="M6 5l14 1l-1 7h-13" />
+            </svg>
+          </a>
+        </li>
+      </ul>
     </nav>
-    
-    
     <!-- fin navbar -->
 
     <section class="information container mt-4">
       <div class="information-content">
         <div class="information-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-store" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round"stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l18 0" /><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"/><path d="M5 21l0 -10.15" /><path d="M19 21l0 -10.15" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-building-store"
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#159A9C"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 21l18 0" />
+            <path
+              d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"
+            />
+            <path d="M5 21l0 -10.15" />
+            <path d="M19 21l0 -10.15" />
+            <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+          </svg>
           <h3>Nuestra Tienda</h3>
-          <p>Encuentranos en Calle Falsa #123 </p>
+          <p>Encuentranos en Calle Falsa #123</p>
         </div>
 
         <div class="information-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-credit-card" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z"/><path d="M3 10l18 0" /><path d="M7 15l.01 0" /><path d="M11 15l2 0" /></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-credit-card"
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#159A9C"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z"
+            />
+            <path d="M3 10l18 0" />
+            <path d="M7 15l.01 0" />
+            <path d="M11 15l2 0" />
+          </svg>
           <h3>Medios de Pago</h3>
           <p>Débito, Crédito o Efectivo</p>
         </div>
 
-        <div class="information-1"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-truck-delivery" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#159A9C" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" /><path d="M3 9l4 0" /></svg>
-          <h3>Despacho</h3>
+        <div class="information-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-truck-delivery"
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#159A9C"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+            <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+            <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+            <path d="M3 9l4 0" />
+          </svg>
+          <h3 id="h3">Despacho</h3>
           <p>Llegamos a donde nos necesites ;)</p>
         </div>
       </div>
     </section>
 
-<!-- Inicio Contenido Principal -->
-<div class="container_product">
-  <main class="products mt-4" id="lista-1">
-    <div class="mt-4 center">
-      <h2>Nuestros Productos</h2>
-    </div>
-    
-
-    <!-- lista de productos -->
-    <div class="product-content">
-      {% for product in products %}
-        <div class="product ">
-          <img src="{{ product.imagen.url }}" alt="{{ product.name }}" />
-          <div class="product-txt">
-            <h3>{{ product.name }}</h3>
-            <p class="precio">${{ product.price }}</p>
-            <form action="{% url 'add_to_cart' product.id %}" method="post">
-              {% csrf_token %}
-              <input class="input_cantidad" type="number" name="quantity" min="1" max="{{ product.quantity }}" value="1" />
-              <input type="submit" value="Agregar" />
-            </form>
+    <!-- Inicio Contenido Principal -->
+    <section class="container_product">
+      <main class="products mt-4" id="lista-1">
+          <div class="mt-4 center">
+              <h2>Nuestros Productos</h2>
           </div>
-        </div>
-      {% endfor %}
-    </div>
-  </main>
-  <!-- Fin Contenido Principal -->
-</div>
-    
-    
-   
-    <!-- Footer -->
-    <footer
-      class="text-center text-lg-start text-white"
-      style="background-color: #43a3a5"
-    >
-      <!-- Grid container -->
-      <div class="container p-4 pb-0">
-        <!-- Section: Links -->
-        <section class="">
+          <!-- lista de productos -->
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+              {% for product in products %}
+                  <div class="col mb-4">
+                      <div class="card">
+                          <img src="{{ product.imagen.url }}" class="card-img-top rounded-circle mx-auto d-block mt-3" alt="{{ product.name }}" style="width: 150px; height: 150px; object-fit: cover;">
+                          <div class="card-body text-center">
+                              <h5 class="card-title" style="font-weight: 600; ">{{ product.name }}</h5>
+                              <p class="card-text precio" style="font-size: 25px; font-weight: 600; color: #159a9c;">${{ product.price }}</p>
+                              <form action="{% url 'add_to_cart' product.id %}" method="post">
+                                  {% csrf_token %}
+                                  <input class="input_cantidad " type="number" name="quantity" min="1" max="{{ product.quantity }}" value="1" style="border-radius: 13px; margin-right: 5px;"/>
+                                  <input type="submit" value="Agregar" class="btn btn-outline-custom btn-block text-white" style="background-color: #159a9c;border-radius: 13px;" />
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+      </main>
+  </section>
+  
+  
+  
+    <!-- Fin Contenido Principal -->
+
+ <!-- Footer -->
+ <footer class="text-center text-lg-start text-white" style="background-color: #43a3a5">
+  <!-- Grid container -->
+  <div class="container-fluid">
+      <!-- Section: Links -->
+      <section>
           <!--Grid row-->
           <div class="row">
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h2 class="text-uppercase mb-4 font-weight-bold">Aqua Pura</h2>
-              <p>
-                Ante cualquier duda o consulta, no dudes en ponerte en contacto
-                con nosotros :)
-              </p>
-            </div>
-            <!-- Grid column -->
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-3 col-xl-3 col-sm-6 mx-auto mt-3">
+                  <h2 class="text-uppercase mb-4 font-weight-bold">Aqua Pura</h2>
+                  <p>Ante cualquier duda o consulta, no dudes en ponerte en contacto con nosotros :)</p>
+              </div>
 
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h6 class="text-uppercase mb-4 font-weight-bold">
-                Políticas y Procedimientos
-              </h6>
-              <p>
-                <a style="text-decoration: none" class="text-white"
-                  >Garantía y Satisfacción</a
-                >
-              </p>
-              <p>
-                <a style="text-decoration: none" class="text-white"
-                  >Políticas de devolución o cambio</a
-                >
-              </p>
-              <p>
-                <a style="text-decoration: none" class="text-white">Tienda</a>
-              </p>
-            </div>
+              <!-- Grid column -->
+              <div class="col-md-4 col-lg-3 col-xl-3 col-sm-6 mx-auto mt-3">
+                  <h6 class="text-uppercase mb-4 font-weight-bold">Políticas y Procedimientos</h6>
+                  <p><a style="text-decoration: none" class="text-white">Garantía y Satisfacción</a></p>
+                  <p><a style="text-decoration: none" class="text-white">Políticas de devolución o cambio</a></p>
+                  <p><a style="text-decoration: none" class="text-white">Tienda</a></p>
+              </div>
 
-            <!-- Grid column -->
-            <hr class="w-100 clearfix d-md-none" />
+              <!-- Grid column -->
+              <hr class="w-100 clearfix d-md-none" />
 
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h6 class="text-uppercase mb-4 font-weight-bold">
-                ¡Contáctanos!
-              </h6>
-              <p><i class="fas fa-home mr-3"></i> Calle Falsa #123</p>
-              <p><i class="fas fa-envelope mr-3"></i> ventas@aquapura.cl</p>
-              <p><i class="fas fa-phone mr-3"></i> +569 12345678</p>
-              <p><i class="fas fa-print mr-3"></i> +569 87654321</p>
-            </div>
-            <!-- Grid column -->
+              <!-- Grid column -->
+              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                  <h6 class="text-uppercase mb-4 font-weight-bold">¡Contáctanos!</h6>
+                  <p><i class="fas fa-home mr-3"></i> Calle Falsa #123</p>
+                  <p><i class="fas fa-envelope mr-3"></i> ventas@aquapura.cl</p>
+                  <p><i class="fas fa-phone mr-3"></i> +569 12345678</p>
+                  <p><i class="fas fa-phone mr-3"></i> +569 87654321</p>
+              </div>
+              <!-- Grid column -->
           </div>
           <!--Grid row-->
-        </section>
-        <!-- Section: Links -->
+      </section>
+      <!-- Section: Links -->
 
-        <hr class="my-3" />
+      <hr class="my-3" />
 
-        <!-- Section: Copyright -->
-        <section class="p-3 pt-0">
-          <div class="row d-flex align-items-center">
-            <!-- Grid column -->
-            <div class="col-md-7 col-lg-8 text-center text-md-start"></div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-7 col-lg-8 ml-lg-0 text-center text-md-end">
-              <!-- Facebook -->
-              <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-facebook-f"></i>Facebook</a>
-              <!-- Twitter -->
-              <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-twitter"></i>Twitter</a>
-              <!-- Instagram -->
-              <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-instagram"></i>Instagram</a></div>
-
-            <!-- Grid column -->
+      <!-- Section: Social Media -->
+      <section class="p-3 pt-0">
+          <div class="row d-flex align-items-center justify-content-center">
+              <!-- Social Media Buttons -->
+              <div class="col-md-7 col-lg-8 ml-lg-0 text-center text-md-center align-items-center d-flex justify-content-center">
+                  <!-- Facebook -->
+                  <a class="btn btn-outline-light btn-floating m-1 text-white" role="button" href="https://www.facebook.com/?locale=es_LA">
+                      <i class="fab fa-facebook-f" ></i> Facebook
+                  </a>
+                  <!-- Twitter -->
+                  <a class="btn btn-outline-light btn-floating m-1 text-white" role="button" href="https://twitter.com/i/flow/login">
+                    <i class="fab fa-twitter"></i> Twitter</a>  
+                  </a>
+                  <!-- Instagram -->
+                  <a class="btn btn-outline-light btn-floating m-1 text-white" role="button" href="https://www.instagram.com/" >
+                      <i class="fab fa-instagram"></i> Instagram
+                  </a>
+              </div>
           </div>
-        </section>
-        <!-- Section: Copyright -->
-      </div>
-      <!-- Grid container -->
-    </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
- 
-    </body>
-  </html>
+      </section>
+  </div>
+</footer>
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
