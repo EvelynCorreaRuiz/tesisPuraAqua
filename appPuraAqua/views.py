@@ -18,28 +18,10 @@ from django.contrib.auth import update_session_auth_hash
 from .models import Sale
 from django.contrib import messages
 from .models import User
-from django.contrib.auth import login, authenticate
-
 
 from django.core.exceptions import ObjectDoesNotExist
 
 import uuid
-
-def login(request):
-  if request.method == 'POST':
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is None:
-        messages.error(request, 'Correo electrónico o contraseña incorrectos. Por favor, inténtalo de nuevo.')
-        return render(request, 'login.html')
-    if user is not None:
-        login(request, user)
-        messages.success(request, '¡Has iniciado sesión con éxito!')
-        return redirect('home')
-    else:
-      messages.error(request, 'Correo electrónico o contraseña incorrectos. Por favor, inténtalo de nuevo.')
-  return render(request, 'login.html')
 
 def verify(request):
     if request.method == 'POST':
